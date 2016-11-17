@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BBoxBoard"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Background="#FFDBF9DB" Height="630.122" Width="963.171" ResizeMode="CanMinimize">
     <Grid>
-        <Canvas HorizontalAlignment="Left" Height="321" VerticalAlignment="Top" Width="518" Margin="0,0,0,-0.2"/>
+        <Canvas 
+            Name="Mycanvas"
+            Margin="0,0,0.4,-0.2"/>
 
     </Grid>
 </Window>

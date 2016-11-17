@@ -23,6 +23,7 @@ namespace BBoxBoard
         public MainWindow()
         {
             InitializeComponent();
+            this.Mycanvas.Children.Add(new Rectangle() { });
         }
     }
 }
