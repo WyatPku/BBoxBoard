@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BBoxBoard.BasicDraw;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,21 @@ namespace BBoxBoard
     /// </summary>
     public partial class MainWindow : Window
     {
+        public const int CanvasWidth = 985;
+        public const int CanvasHeight = 715;
+
         public MainWindow()
         {
             InitializeComponent();
-            this.Mycanvas.Children.Add(new Rectangle() { });
+            DrawLine drawLine = new DrawLine(Mycanvas);
+            DrawEllipse drawEllipse = new DrawEllipse(Mycanvas);
+            drawEllipse.Draw(0, 0);
+            drawEllipse.Draw(CanvasWidth, CanvasHeight);
+            UpdateList();
+        }
+        private void UpdateList()
+        {
+            this.listView.Items.Clear();
         }
     }
 }

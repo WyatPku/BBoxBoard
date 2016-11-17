@@ -5,11 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BBoxBoard"
         mc:Ignorable="d"
-        Title="MainWindow" Background="#FFDBF9DB" Height="630.122" Width="963.171" ResizeMode="CanMinimize">
+        Title="MainWindow" Background="#FFDBF9DB" Height="750" Width="1200" ResizeMode="CanMinimize">
     <Grid>
         <Canvas 
             Name="Mycanvas"
-            Margin="0,0,0.4,-0.2"/>
+            Margin="200,0,0,0"/>
+        <ListView x:Name="listView" HorizontalAlignment="Left" Width="200">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
     </Grid>
 </Window>
