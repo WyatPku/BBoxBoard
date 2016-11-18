@@ -17,7 +17,7 @@ namespace BBoxBoard.Comp
             //设置类型
             Comp = Comp_Resistance;
             //必须重新设置元件大小
-            size.X = 60;
+            size.X = 100;
             size.Y = 20;
             //定义外部接口的位置
             RelativeInterface.Add(new IntPoint(0, 10)); //左端口

@@ -19,6 +19,7 @@ namespace BBoxBoard.Comp
         public const int Comp_Wire = 0;
         public const int Comp_Resistance = 1;
         public const int Comp_Capacity = 2;
+        public const int Comp_Inductance = 3;
 
         protected ShapeSet shapeSet;
         protected IntPoint XYPoint;

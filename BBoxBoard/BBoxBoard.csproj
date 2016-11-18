@@ -69,6 +69,7 @@
     <Compile Include="Comp\Capacity.cs" />
     <Compile Include="Comp\ElecComp.cs" />
     <Compile Include="Comp\ElecCompSet.cs" />
+    <Compile Include="Comp\Inductance.cs" />
     <Compile Include="Comp\Resistance.cs" />
     <Compile Include="BasicDraw\TransferXY.cs" />
     <Compile Include="Comp\Wire.cs" />

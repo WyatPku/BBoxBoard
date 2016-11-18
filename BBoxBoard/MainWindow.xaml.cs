@@ -37,7 +37,7 @@ namespace BBoxBoard
             InitializeComponent();
             ImageArr = new List<Image>();
             //MessageBox.Show("" + Environment.CurrentDirectory);
-            for (int i=0; i<3; i++)
+            for (int i=0; i<4; i++)
             {
                 Image image = new Image();
                 image.Width = 200;
@@ -116,6 +116,11 @@ namespace BBoxBoard
                         Wire w = new Wire();
                         elecCompSet.AddCompAndShow(w, Mycanvas);
                         w.Move(100, 100);
+                        break;
+                    case 3:
+                        Inductance i = new Inductance();
+                        elecCompSet.AddCompAndShow(i, Mycanvas);
+                        i.Move(100, 100);
                         break;
                 }
             }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Shapes;
 
 namespace BBoxBoard.BasicDraw
@@ -14,6 +15,7 @@ namespace BBoxBoard.BasicDraw
         public const int Shape_Line = 1;
         public const int Shape_Rectangle = 2;
         public const int Shape_Ellipse = 3;
+        public const int Shape_Ployline = 4;
 
         Shape shape;
         int WHAT;
@@ -31,6 +33,9 @@ namespace BBoxBoard.BasicDraw
                     break;
                 case Shape_Ellipse:
                     shape = new Ellipse();
+                    break;
+                case Shape_Ployline:
+                    shape = new Polyline();
                     break;
             }
         }
@@ -50,6 +55,12 @@ namespace BBoxBoard.BasicDraw
         public Ellipse GetEllipse()
         {
             if (WHAT == Shape_Ellipse) return (Ellipse)shape;
+            return null;
+        }
+
+        public Polyline GetPolyline()
+        {
+            if (WHAT == Shape_Ployline) return (Polyline)shape;
             return null;
         }
 
@@ -81,6 +92,12 @@ namespace BBoxBoard.BasicDraw
                     Canvas.SetTop(ellipse, point.Y + Y1);
                     canvas.Children.Add(ellipse);
                     break;
+                case Shape_Ployline:
+                    Polyline polyline = (Polyline)shape;
+                    Canvas.SetLeft(polyline, point.X);
+                    Canvas.SetTop(polyline, point.Y);
+                    canvas.Children.Add(polyline);
+                    break;
             }
         }
 
@@ -109,6 +126,13 @@ namespace BBoxBoard.BasicDraw
                     double Y1 = Canvas.GetTop(ellipse);
                     Canvas.SetLeft(ellipse, X1 + deltaX);
                     Canvas.SetTop(ellipse, Y1 + deltaY);
+                    break;
+                case Shape_Ployline:
+                    Polyline polyline = (Polyline)shape;
+                    double X2 = Canvas.GetLeft(polyline);
+                    double Y2 = Canvas.GetTop(polyline);
+                    Canvas.SetLeft(polyline, X2 + deltaX);
+                    Canvas.SetTop(polyline, Y2 + deltaY);
                     break;
             }
         }
@@ -162,6 +186,15 @@ namespace BBoxBoard.BasicDraw
                     ellipse.Height = ElliWidth;
                     Canvas.SetLeft(ellipse, CX2 - ElliHeight / 2);
                     Canvas.SetTop(ellipse, CY2 - ElliWidth / 2);
+                    break;
+                case Shape_Ployline:
+                    Polyline polyline = (Polyline)shape;
+                    PointCollection pointC = new PointCollection();
+                    foreach (Point p in polyline.Points)
+                    {
+                        pointC.Add(new Point(p.Y, -p.X));
+                    }
+                    polyline.Points = pointC;
                     break;
             }
         }
