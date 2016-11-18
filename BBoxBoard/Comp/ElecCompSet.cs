@@ -22,15 +22,17 @@ namespace BBoxBoard.Comp
 
         public bool FoundPressedElecComp(IntPoint point)
         {
-            foreach (ElecComp elecComp in elecSet)
+            for (int i=0; i<elecSet.Count; i++)
             {
-                if (elecComp.IfInRegion(point))
+                //MessageBox.Show("Founding:" + i + "\nX:" + point.X + "\nY:" + point.Y);
+                if (elecSet[i].IfInRegion(point))
                 {
-                    pressedElecComp = elecComp;
+                    pressedElecComp = elecSet[i];
+                    //MessageBox.Show("pressedElecComp" + pressedElecComp);
                     return true;
                 }
             }
-            return true;
+            return false;
         }
         public void ReleaseElecComp()
         {

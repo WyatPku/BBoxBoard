@@ -56,7 +56,10 @@ namespace BBoxBoard.BasicDraw
                     canvas.Children.Add(line);
                     break;
                 case Shape_Rectangle:
-                    
+                    Rectangle rectangle = (Rectangle)shape;
+                    Canvas.SetLeft(rectangle, point.X);
+                    Canvas.SetTop(rectangle, point.Y);
+                    canvas.Children.Add(rectangle);
                     break;
             }
         }
@@ -71,6 +74,13 @@ namespace BBoxBoard.BasicDraw
                     line.X2 += deltaX;
                     line.Y1 += deltaY;
                     line.Y2 += deltaY;
+                    break;
+                case Shape_Rectangle:
+                    Rectangle rectangle = (Rectangle)shape;
+                    double X = Canvas.GetLeft(rectangle);
+                    double Y = Canvas.GetTop(rectangle);
+                    Canvas.SetLeft(rectangle, X);
+                    Canvas.SetTop(rectangle, Y);
                     break;
             }
         }

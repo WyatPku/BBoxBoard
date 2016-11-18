@@ -27,6 +27,10 @@ namespace BBoxBoard.Comp
             line1.GetLine().Y2 = 10;
             line1.GetLine().StrokeThickness = 5;
             shapeSet.AddShape(line1);
+            MyShape rectangle = new MyShape(MyShape.Shape_Rectangle);
+            rectangle.GetRectangle().Width = 30;
+            rectangle.GetRectangle().Height = 30;
+            shapeSet.AddShape(rectangle);
         }
     }
 }

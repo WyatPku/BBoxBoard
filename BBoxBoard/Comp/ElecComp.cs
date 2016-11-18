@@ -52,8 +52,8 @@ namespace BBoxBoard.Comp
         }
         public bool IfInRegion(IntPoint P0)
         {
-            if (XYPoint.X < P0.X || XYPoint.X >= P0.X + size.X) return false;
-            if (XYPoint.Y < P0.Y || XYPoint.Y >= P0.Y + size.Y) return false;
+            if (XYPoint.X > P0.X || XYPoint.X < P0.X - size.X) return false;
+            if (XYPoint.Y > P0.Y || XYPoint.Y < P0.Y - size.Y) return false;
             return true;
         }
     }

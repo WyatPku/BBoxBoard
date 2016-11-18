@@ -45,26 +45,25 @@ namespace BBoxBoard
             Resistance resistance = new Resistance();
             elecCompSet.AddComp(resistance);
             elecCompSet.ShowAll(Mycanvas);
-            resistance.Move(100, 100);
+            //resistance.Move(100, 100);
         }
 
         private void Mycanvas_MouseMove(object sender, MouseEventArgs e)
         {
-            var targetElement = Mouse.Captured as UIElement;
-            if (e.LeftButton == MouseButtonState.Pressed && targetElement != null /*&& 
-                elecCompSet.pressedElecComp != null*/)
+            if (e.LeftButton == MouseButtonState.Pressed && 
+                elecCompSet.pressedElecComp != null)
             {
                 IntPoint pCanvas = new IntPoint(e.GetPosition(Mycanvas));
                 IntPoint p = ToGrid(pCanvas);
                 textBox.Text = "X:" + p.X + "\nY:" + p.Y;
-                /*if (p.X - PushDownPoint.X - HasMoved.X != 0 || 
+                if (p.X - PushDownPoint.X - HasMoved.X != 0 || 
                     p.Y - PushDownPoint.Y - HasMoved.Y != 0)
                 {
                     elecCompSet.pressedElecComp.Move(p.X - PushDownPoint.X - HasMoved.X,
                         p.Y - PushDownPoint.Y - HasMoved.Y);
                     HasMoved.X = p.X - PushDownPoint.X;
                     HasMoved.Y = p.Y - PushDownPoint.Y;
-                }*/
+                }
                 
             }
         }
