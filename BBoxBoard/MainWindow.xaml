@@ -9,7 +9,9 @@
     <Grid>
         <Canvas 
             Name="Mycanvas"
-            Margin="200,0,0,0"/>
+            Margin="200,0,0,0">
+            
+        </Canvas>
         <ListView x:Name="listView" HorizontalAlignment="Left" Width="200" Height="648" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>

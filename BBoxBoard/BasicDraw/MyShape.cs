@@ -43,7 +43,7 @@ namespace BBoxBoard.BasicDraw
             return null;
         }
 
-        public void ShowAt(Canvas canvas, Point point)
+        public void ShowAt(Canvas canvas, IntPoint point)
         {
             switch (WHAT)
             {
@@ -57,6 +57,20 @@ namespace BBoxBoard.BasicDraw
                     break;
                 case Shape_Rectangle:
                     
+                    break;
+            }
+        }
+
+        public void Move(int deltaX, int deltaY)
+        {
+            switch (WHAT)
+            {
+                case Shape_Line:
+                    Line line = (Line)shape;
+                    line.X1 += deltaX;
+                    line.X2 += deltaX;
+                    line.Y1 += deltaY;
+                    line.Y2 += deltaY;
                     break;
             }
         }

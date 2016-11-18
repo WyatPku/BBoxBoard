@@ -65,9 +65,11 @@
     </Compile>
     <Compile Include="BasicDraw\DrawEllipse.cs" />
     <Compile Include="BasicDraw\DrawLine.cs" />
+    <Compile Include="BasicDraw\IntPoint.cs" />
     <Compile Include="BasicDraw\MyShape.cs" />
     <Compile Include="BasicDraw\ShapeSet.cs" />
     <Compile Include="Comp\ElecComp.cs" />
+    <Compile Include="Comp\ElecCompSet.cs" />
     <Compile Include="Comp\Resistance.cs" />
     <Compile Include="BasicDraw\TransferXY.cs" />
     <Compile Include="MainWindow.xaml.cs">

@@ -24,6 +24,11 @@ namespace BBoxBoard
     {
         public const int CanvasWidth = 985;
         public const int CanvasHeight = 715;
+        public const int GridLen = 20;
+
+        private ElecCompSet elecCompSet;
+        private IntPoint PushDownPoint;
+        private IntPoint HasMoved;
 
         public MainWindow()
         {
@@ -36,17 +41,31 @@ namespace BBoxBoard
             this.Mycanvas.MouseDown += Mycanvas_MouseDown;
             this.Mycanvas.MouseUp += Mycanvas_MouseUp;
             this.Mycanvas.MouseMove += Mycanvas_MouseMove;
+            elecCompSet = new ElecCompSet();
             Resistance resistance = new Resistance();
-            resistance.ShowAt(Mycanvas, new Point(100, 200));
+            elecCompSet.AddComp(resistance);
+            elecCompSet.ShowAll(Mycanvas);
+            resistance.Move(100, 100);
         }
 
         private void Mycanvas_MouseMove(object sender, MouseEventArgs e)
         {
             var targetElement = Mouse.Captured as UIElement;
-            if (e.LeftButton == MouseButtonState.Pressed && targetElement != null)
+            if (e.LeftButton == MouseButtonState.Pressed && targetElement != null /*&& 
+                elecCompSet.pressedElecComp != null*/)
             {
-                Point pCanvas = e.GetPosition(Mycanvas);
-                textBox.Text = "X:" + pCanvas.X + "\nY:" + pCanvas.Y;
+                IntPoint pCanvas = new IntPoint(e.GetPosition(Mycanvas));
+                IntPoint p = ToGrid(pCanvas);
+                textBox.Text = "X:" + p.X + "\nY:" + p.Y;
+                /*if (p.X - PushDownPoint.X - HasMoved.X != 0 || 
+                    p.Y - PushDownPoint.Y - HasMoved.Y != 0)
+                {
+                    elecCompSet.pressedElecComp.Move(p.X - PushDownPoint.X - HasMoved.X,
+                        p.Y - PushDownPoint.Y - HasMoved.Y);
+                    HasMoved.X = p.X - PushDownPoint.X;
+                    HasMoved.Y = p.Y - PushDownPoint.Y;
+                }*/
+                
             }
         }
 
@@ -54,11 +73,13 @@ namespace BBoxBoard
         {
             Mouse.Capture(null);
             //取消正在移动的东西，并刷新电路网格
+            elecCompSet.ReleaseElecComp();
         }
 
         private void Mycanvas_MouseDown(object sender, MouseButtonEventArgs e)
         {
             var targetElement = e.Source as IInputElement;
+            IntPoint point = ToGrid(new IntPoint(e.GetPosition(Mycanvas)));
             if (targetElement != null)
             {
                 targetElement.CaptureMouse();
@@ -68,12 +89,27 @@ namespace BBoxBoard
                  * Move的时候一直跟着动，但是位置不是鼠标的位置，而是贴合位置
                  * 这和第一次放上去元件是一样的，只能放在格点上
                  */
+                if (elecCompSet.FoundPressedElecComp(point))
+                {
+                    //MessageBox.Show("Found!");
+                    textBox.Text = "Found";
+                    PushDownPoint = point;
+                    HasMoved = new IntPoint(0, 0);
+                }
             }
         }
 
         private void UpdateList()
         {
             this.listView.Items.Clear();
+        }
+
+        private IntPoint ToGrid(IntPoint point0)
+        {
+            IntPoint p = new IntPoint();
+            p.X = point0.X - (point0.X % GridLen) + GridLen / 2;
+            p.Y = point0.Y - (point0.Y % GridLen) + GridLen / 2;
+            return p;
         }
     }
 }

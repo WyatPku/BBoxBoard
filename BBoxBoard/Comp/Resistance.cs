@@ -9,15 +9,16 @@ namespace BBoxBoard.Comp
 {
     public class Resistance : ElecComp
     {
-        
 
-        public Resistance() : base()
-        {
-            
-        }
+
+        public Resistance() : base() { }
 
         public override void AddShapes()
         {
+            //必须重新设置元件大小
+            size.X = 60;
+            size.Y = 20;
+            //结束必须设置
             MyShape line1 = new MyShape(MyShape.Shape_Line);
             line1.GetLine().Stroke = System.Windows.Media.Brushes.Red;
             line1.GetLine().X1 = 0;
