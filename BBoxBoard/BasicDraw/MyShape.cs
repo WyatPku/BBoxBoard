@@ -3,16 +3,62 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Shapes;
 
 namespace BBoxBoard.BasicDraw
 {
-    class MyShape
+    public class MyShape
     {
-        MyShape()
+        public const int Shape_Line = 1;
+        public const int Shape_Rectangle = 2;
+
+        Shape shape;
+        int WHAT;
+
+        public MyShape(int WHAT_)
         {
-            Shape shape = new Rectangle();
-            Shape shape2 = new Line();
+            WHAT = WHAT_;
+            switch (WHAT)
+            {
+                case Shape_Line:
+                    shape = new Line();
+                    break;
+                case Shape_Rectangle:
+                    shape = new Rectangle();
+                    break;
+            }
+        }
+
+        public Line GetLine()
+        {
+            if (WHAT == Shape_Line) return (Line)shape;
+            return null;
+        }
+
+        public Rectangle GetRectangle()
+        {
+            if (WHAT == Shape_Rectangle) return (Rectangle)shape;
+            return null;
+        }
+
+        public void ShowAt(Canvas canvas, Point point)
+        {
+            switch (WHAT)
+            {
+                case Shape_Line:
+                    Line line = (Line)shape;
+                    line.X1 += point.X;
+                    line.X2 += point.X;
+                    line.Y1 += point.Y;
+                    line.Y2 += point.Y;
+                    canvas.Children.Add(line);
+                    break;
+                case Shape_Rectangle:
+                    
+                    break;
+            }
         }
     }
 }

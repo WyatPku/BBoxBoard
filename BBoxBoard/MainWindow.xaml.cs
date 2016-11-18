@@ -1,4 +1,5 @@
 ﻿using BBoxBoard.BasicDraw;
+using BBoxBoard.Comp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,6 @@ namespace BBoxBoard
     {
         public const int CanvasWidth = 985;
         public const int CanvasHeight = 715;
-        Point targetPoint;
 
         public MainWindow()
         {
@@ -36,6 +36,8 @@ namespace BBoxBoard
             this.Mycanvas.MouseDown += Mycanvas_MouseDown;
             this.Mycanvas.MouseUp += Mycanvas_MouseUp;
             this.Mycanvas.MouseMove += Mycanvas_MouseMove;
+            Resistance resistance = new Resistance();
+            resistance.ShowAt(Mycanvas, new Point(100, 200));
         }
 
         private void Mycanvas_MouseMove(object sender, MouseEventArgs e)
