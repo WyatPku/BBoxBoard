@@ -1,5 +1,6 @@
 ﻿using BBoxBoard.BasicDraw;
 using BBoxBoard.Comp;
+using BBoxBoard.Output;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,11 +63,21 @@ namespace BBoxBoard
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.I)
+            if (e.Key == Key.O)
+            {
+                List<BriefElecComp> A = GetAllComp();
+                String str = "";
+                foreach (BriefElecComp b in A)
+                {
+                    str += b + "\n";
+                }
+                MessageBox.Show(str);
+            }
+            else if (e.Key == Key.I)
             {
                 MessageBox.Show(elecCompSet.ToString());
             }
-            if (e.Key == Key.R && elecCompSet.pressedElecComp != null)
+            else if (e.Key == Key.R && elecCompSet.pressedElecComp != null)
             {
                 //MessageBox.Show("Rotating!");
                 elecCompSet.pressedElecComp.RotateLeft();
@@ -176,6 +187,13 @@ namespace BBoxBoard
             p.X = point0.X - (point0.X % GridLen) + GridLen / 2;
             p.Y = point0.Y - (point0.Y % GridLen) + GridLen / 2;
             return p;
+        }
+
+        public List<BriefElecComp> GetAllComp()
+        {
+            List<BriefElecComp> A = new List<BriefElecComp>();
+            elecCompSet.OutputInto(A);
+            return A;
         }
     }
 }

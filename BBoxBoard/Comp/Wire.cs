@@ -21,7 +21,7 @@ namespace BBoxBoard.Comp
             IntPoint A = new IntPoint(0, 0);
             IntPoint B = new IntPoint(50, 0);
             RelativeInterface.Add(A); //左端口
-            RelativeInterface.Add(A); //右端口
+            RelativeInterface.Add(B); //右端口
             InitiateWireBetween(A, B);
             //必须重新设置元件大小
             int sizeX = Math.Abs(A.X - B.X);

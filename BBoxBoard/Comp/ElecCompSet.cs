@@ -1,4 +1,5 @@
 ﻿using BBoxBoard.BasicDraw;
+using BBoxBoard.Output;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -63,6 +64,14 @@ namespace BBoxBoard.Comp
                 A += i + ":" + elecSet[i].GetInfo() + '\n';
             }
             return A;
+        }
+
+        public void OutputInto(List<BriefElecComp> A)
+        {
+            foreach (ElecComp elecComp in elecSet)
+            {
+                A.Add(elecComp.GetBriefElecComp());
+            }
         }
     }
 }

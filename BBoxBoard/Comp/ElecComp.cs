@@ -1,4 +1,5 @@
 ﻿using BBoxBoard.BasicDraw;
+using BBoxBoard.Output;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -111,24 +112,25 @@ namespace BBoxBoard.Comp
         }
         public void RotateLeft()
         {
+            if (IsWire) return;
             RotatedState++;
             RotatedState %= 4;
             shapeSet.RotateLeftAround(XYPoint);
             foreach (IntPoint intPoint in RelativeInterface)
             {
-                RotatePointAround(intPoint, XYPoint);
+                RotatePointAround(intPoint);
             }
             int sizeX = size.X;
             int sizeY = size.Y;
             size.X = sizeY;
             size.Y = -sizeX;
         }
-        private void RotatePointAround(IntPoint itface, IntPoint center)
+        private void RotatePointAround(IntPoint itface)
         {
-            int deltaX = itface.X - center.X;
-            int deltaY = itface.Y - center.Y;
-            itface.X = center.X + deltaY;
-            itface.Y = center.Y - deltaX;
+            int deltaX = itface.X;
+            int deltaY = itface.Y;
+            itface.X = deltaY;
+            itface.Y = -deltaX;
         }
         protected void InitiateWireBetween(IntPoint A, IntPoint B)
         {
@@ -177,6 +179,8 @@ namespace BBoxBoard.Comp
         {
             if (shapeSet.IsPossibleWire())
             {
+                RelativeInterface[0] = new IntPoint(0, 0);
+                RelativeInterface[1] = new IntPoint(B.X - A.X, B.Y - A.Y);
                 double sizeX = B.X - A.X;
                 double sizeY = B.Y - A.Y;
                 size.X = (int)((sizeX == 0) ? 10 : sizeX);
@@ -269,6 +273,16 @@ namespace BBoxBoard.Comp
             }
             A += shapeSet;
             return A;
+        }
+
+        public BriefElecComp GetBriefElecComp()
+        {
+            List<IntPoint> A = new List<IntPoint>();
+            foreach (IntPoint p in RelativeInterface)
+            {
+                A.Add(new IntPoint(p.X + XYPoint.X, p.Y + XYPoint.Y));
+            }
+            return new BriefElecComp(Comp, A);
         }
     }
 }
