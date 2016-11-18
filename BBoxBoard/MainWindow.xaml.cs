@@ -42,10 +42,12 @@ namespace BBoxBoard
             this.Mycanvas.MouseUp += Mycanvas_MouseUp;
             this.Mycanvas.MouseMove += Mycanvas_MouseMove;
             elecCompSet = new ElecCompSet();
-            Resistance resistance = new Resistance();
-            elecCompSet.AddComp(resistance);
+            Resistance resistance1 = new Resistance();
+            elecCompSet.AddComp(resistance1);
+            Resistance resistance2 = new Resistance();
+            elecCompSet.AddComp(resistance2);
+            //resistance2.Move(100, 200);
             elecCompSet.ShowAll(Mycanvas);
-            //resistance.Move(100, 100);
         }
 
         private void Mycanvas_MouseMove(object sender, MouseEventArgs e)

@@ -13,6 +13,7 @@ namespace BBoxBoard.BasicDraw
     {
         public const int Shape_Line = 1;
         public const int Shape_Rectangle = 2;
+        public const int Shape_Ellipse = 3;
 
         Shape shape;
         int WHAT;
@@ -28,6 +29,9 @@ namespace BBoxBoard.BasicDraw
                 case Shape_Rectangle:
                     shape = new Rectangle();
                     break;
+                case Shape_Ellipse:
+                    shape = new Ellipse();
+                    break;
             }
         }
 
@@ -40,6 +44,12 @@ namespace BBoxBoard.BasicDraw
         public Rectangle GetRectangle()
         {
             if (WHAT == Shape_Rectangle) return (Rectangle)shape;
+            return null;
+        }
+
+        public Ellipse GetEllipse()
+        {
+            if (WHAT == Shape_Ellipse) return (Ellipse)shape;
             return null;
         }
 
@@ -57,9 +67,19 @@ namespace BBoxBoard.BasicDraw
                     break;
                 case Shape_Rectangle:
                     Rectangle rectangle = (Rectangle)shape;
-                    Canvas.SetLeft(rectangle, point.X);
-                    Canvas.SetTop(rectangle, point.Y);
+                    double X0 = Canvas.GetLeft(rectangle);
+                    double Y0 = Canvas.GetTop(rectangle);
+                    Canvas.SetLeft(rectangle, point.X + X0);
+                    Canvas.SetTop(rectangle, point.Y + Y0);
                     canvas.Children.Add(rectangle);
+                    break;
+                case Shape_Ellipse:
+                    Ellipse ellipse = (Ellipse)shape;
+                    double X1 = Canvas.GetLeft(ellipse);
+                    double Y1 = Canvas.GetTop(ellipse);
+                    Canvas.SetLeft(ellipse, point.X + X1);
+                    Canvas.SetTop(ellipse, point.Y + Y1);
+                    canvas.Children.Add(ellipse);
                     break;
             }
         }
@@ -79,8 +99,16 @@ namespace BBoxBoard.BasicDraw
                     Rectangle rectangle = (Rectangle)shape;
                     double X = Canvas.GetLeft(rectangle);
                     double Y = Canvas.GetTop(rectangle);
-                    Canvas.SetLeft(rectangle, X);
-                    Canvas.SetTop(rectangle, Y);
+                    //MessageBox.Show("Rect X:" + X + " Y:" + Y);
+                    Canvas.SetLeft(rectangle, X + deltaX);
+                    Canvas.SetTop(rectangle, Y + deltaY);
+                    break;
+                case Shape_Ellipse:
+                    Ellipse ellipse = (Ellipse)shape;
+                    double X1 = Canvas.GetLeft(ellipse);
+                    double Y1 = Canvas.GetTop(ellipse);
+                    Canvas.SetLeft(ellipse, X1 + deltaX);
+                    Canvas.SetTop(ellipse, Y1 + deltaY);
                     break;
             }
         }
