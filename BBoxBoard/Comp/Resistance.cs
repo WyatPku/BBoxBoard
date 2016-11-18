@@ -14,6 +14,8 @@ namespace BBoxBoard.Comp
 
         public override void AddShapes()
         {
+            //设置类型
+            Comp = Comp_Resistance;
             //必须重新设置元件大小
             size.X = 60;
             size.Y = 20;

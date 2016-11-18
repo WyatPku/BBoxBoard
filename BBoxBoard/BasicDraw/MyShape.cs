@@ -165,5 +165,27 @@ namespace BBoxBoard.BasicDraw
                     break;
             }
         }
+
+        public override string ToString()
+        {
+            switch(WHAT)
+            {
+                case Shape_Line:
+                    Line line = this.GetLine();
+                    return "{Line(" + line.X1 + "," + line.Y1 + ")(" +
+                        line.X2 + "," + line.Y2 + ")}";
+                case Shape_Rectangle:
+                    Rectangle rectangle = this.GetRectangle();
+                    return "{Rectangle(" + Canvas.GetLeft(rectangle) + "," + 
+                        Canvas.GetTop(rectangle) + ")Size(" + rectangle.Width +
+                        "," + rectangle.Height + ")}";
+                case Shape_Ellipse:
+                    Ellipse ellipse = this.GetEllipse();
+                    return "{Ellipse(" + Canvas.GetLeft(ellipse)  + "," + 
+                        Canvas.GetTop(ellipse) + ")Size(" + ellipse.Width + "," +
+                        ellipse.Height + ")}";
+            }
+            return "NULL";
+        }
     }
 }

@@ -14,9 +14,14 @@ namespace BBoxBoard.Comp
 
         public override void AddShapes()
         {
+            //设置类型
+            Comp = Comp_Capacity;
             //必须重新设置元件大小
             size.X = 60;
             size.Y = 40;
+            //定义外部接口的位置
+            RelativeInterface.Add(new IntPoint(0, 20)); //左端口
+            RelativeInterface.Add(new IntPoint(70, 20)); //右端口
             //左边的导线
             MyShape line1 = new MyShape(MyShape.Shape_Line);
             line1.GetLine().Stroke = System.Windows.Media.Brushes.Red;

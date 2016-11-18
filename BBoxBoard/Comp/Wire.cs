@@ -13,6 +13,8 @@ namespace BBoxBoard.Comp
 
         public override void AddShapes()
         {
+            //设置类型
+            Comp = Comp_Wire;
             //指定这是电线
             IsWire = true;
             //定义外部接口的位置

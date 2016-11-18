@@ -62,6 +62,10 @@ namespace BBoxBoard
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.I)
+            {
+                MessageBox.Show(elecCompSet.ToString());
+            }
             if (e.Key == Key.R && elecCompSet.pressedElecComp != null)
             {
                 //MessageBox.Show("Rotating!");

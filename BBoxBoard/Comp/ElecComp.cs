@@ -14,6 +14,10 @@ namespace BBoxBoard.Comp
     {
         public const int State_Move = 0;
         public const int State_AdjRight = 1;
+        public const int Comp_NULL = -1;
+        public const int Comp_Wire = 0;
+        public const int Comp_Resistance = 1;
+        public const int Comp_Capacity = 2;
 
         protected ShapeSet shapeSet;
         protected IntPoint XYPoint;
@@ -21,11 +25,13 @@ namespace BBoxBoard.Comp
         protected Canvas canvas;
         protected List<IntPoint> RelativeInterface;
         protected int RotatedState = 0;
+        protected int Comp;
         public bool IsWire;
         public int State;
 
         public ElecComp()
         {
+            Comp = -1;
             shapeSet = new ShapeSet();
             XYPoint = new IntPoint(0, 0);
             size = new IntPoint(MainWindow.GridLen, MainWindow.GridLen);
@@ -236,6 +242,33 @@ namespace BBoxBoard.Comp
                 line2.X2 = B.X;
                 line2.Y2 = B.Y;
             }
+        }
+
+        public String GetInfo()
+        {
+            String A = "";
+            switch(Comp)
+            {
+                case Comp_Wire:
+                    A += "Wire";
+                    break;
+                case Comp_Resistance:
+                    A += "Resistance";
+                    break;
+                case Comp_Capacity:
+                    A += "Capacity";
+                    break;
+                default:
+                    return "NULL";
+            }
+            A += ",center=(" + XYPoint.X + "," + XYPoint.Y + ")";
+            for (int i=0; i<RelativeInterface.Count; i++)
+            {
+                A += ",itfc(" + RelativeInterface[i].X + "," 
+                    + RelativeInterface[i].Y + ")";
+            }
+            A += shapeSet;
+            return A;
         }
     }
 }

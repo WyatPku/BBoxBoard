@@ -47,5 +47,15 @@ namespace BBoxBoard.BasicDraw
             if (arr[3].GetEllipse() == null) return false;
             return true;
         }
+
+        public override string ToString()
+        {
+            String A = "";
+            foreach (MyShape myShape in arr)
+            {
+                A += "," + myShape;
+            }
+            return A;
+        }
     }
 }

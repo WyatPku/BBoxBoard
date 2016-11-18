@@ -54,5 +54,15 @@ namespace BBoxBoard.Comp
                 elecSet.Remove(pressedElecComp);
             }
         }
+
+        public override String ToString()
+        {
+            String A = "组件数：" + elecSet.Count + '\n';
+            for (int i=0; i<elecSet.Count; i++)
+            {
+                A += i + ":" + elecSet[i].GetInfo() + '\n';
+            }
+            return A;
+        }
     }
 }
