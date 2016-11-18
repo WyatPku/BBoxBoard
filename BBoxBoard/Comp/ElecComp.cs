@@ -71,7 +71,13 @@ namespace BBoxBoard.Comp
         }
         public virtual void AdjRight(int deltaX, int deltaY)
         {
-            //do nothing
+            if (shapeSet.IsPossibleWire())
+            {
+                Line line1 = shapeSet.arr[0].GetLine();
+                Line line2 = shapeSet.arr[1].GetLine();
+                DrawBetween(new IntPoint((int)line1.X1, (int)line1.Y1),
+                    new IntPoint((int)line2.X2 + deltaX, (int)line2.Y2 + deltaY));
+            }
         }
         public bool IfInRegion(IntPoint P0)
         {
@@ -122,7 +128,7 @@ namespace BBoxBoard.Comp
         {
             //左边的导线
             MyShape line1 = new MyShape(MyShape.Shape_Line);
-            line1.GetLine().Stroke = System.Windows.Media.Brushes.Red;
+            line1.GetLine().Stroke = System.Windows.Media.Brushes.Blue;
             line1.GetLine().X1 = A.X;
             line1.GetLine().Y1 = A.Y;
             line1.GetLine().X2 = 0;
@@ -131,13 +137,33 @@ namespace BBoxBoard.Comp
             shapeSet.AddShape(line1);
             //右边的导线
             MyShape line2 = new MyShape(MyShape.Shape_Line);
-            line2.GetLine().Stroke = System.Windows.Media.Brushes.Red;
+            line2.GetLine().Stroke = System.Windows.Media.Brushes.Blue;
             line2.GetLine().X1 = 0;
             line2.GetLine().Y1 = 0;
             line2.GetLine().X2 = B.X;
             line2.GetLine().Y2 = B.Y;
             line2.GetLine().StrokeThickness = 5;
             shapeSet.AddShape(line2);
+            //左边的定位圆圈
+            MyShape circle1 = new MyShape(MyShape.Shape_Ellipse);
+            circle1.GetEllipse().Fill = System.Windows.Media.Brushes.Red;
+            circle1.GetEllipse().StrokeThickness = 3;
+            circle1.GetEllipse().Stroke = System.Windows.Media.Brushes.Yellow;
+            circle1.GetEllipse().Width = 10;
+            circle1.GetEllipse().Height = 10;
+            Canvas.SetLeft(circle1.GetEllipse(), A.X - 5);
+            Canvas.SetTop(circle1.GetEllipse(), A.Y - 5);
+            shapeSet.AddShape(circle1);
+            //右边的定位圆圈
+            MyShape circle2 = new MyShape(MyShape.Shape_Ellipse);
+            circle2.GetEllipse().Fill = System.Windows.Media.Brushes.Red;
+            circle2.GetEllipse().StrokeThickness = 3;
+            circle2.GetEllipse().Stroke = System.Windows.Media.Brushes.Yellow;
+            circle2.GetEllipse().Width = 10;
+            circle2.GetEllipse().Height = 10;
+            Canvas.SetLeft(circle2.GetEllipse(), B.X - 5);
+            Canvas.SetTop(circle2.GetEllipse(), B.Y - 5);
+            shapeSet.AddShape(circle2);
             //按照折线标准绘图
             DrawBetween(A, B);
         }
@@ -145,26 +171,70 @@ namespace BBoxBoard.Comp
         {
             if (shapeSet.IsPossibleWire())
             {
+                double sizeX = B.X - A.X;
+                double sizeY = B.Y - A.Y;
+                size.X = (int)((sizeX == 0) ? 10 : sizeX);
+                size.Y = (int)((sizeY == 0) ? 10 : sizeY);
                 Line line1 = shapeSet.arr[0].GetLine();
                 Line line2 = shapeSet.arr[1].GetLine();
                 Ellipse point1 = shapeSet.arr[2].GetEllipse();
                 Ellipse point2 = shapeSet.arr[3].GetEllipse();
                 IntPoint C = new IntPoint(); //用来记录中间转折点的信息
-                int deltaX = B.X - A.X;
-                int deltaY = B.Y - A.Y;
-                if (Math.Abs(deltaX) == Math.Abs(deltaY))
+                double deltaX = B.X - A.X;
+                double deltaY = B.Y - A.Y;
+                Canvas.SetLeft(point1, A.X - point1.Width / 2);
+                Canvas.SetTop(point1, A.Y - point1.Height / 2);
+                Canvas.SetLeft(point2, B.X - point2.Width / 2);
+                Canvas.SetTop(point2, B.Y - point2.Height / 2);
+                if (Math.Abs(deltaX) == Math.Abs(deltaY)) //这里面包含了均为0的情况
                 {
                     //在一条斜线上，不需要中间转折
                     line1.X1 = A.X;
                     line1.Y1 = A.Y;
                     line1.X2 = A.X;
                     line1.Y2 = A.Y;
-                    Canvas.SetLeft(point1, A.X - point1.Width / 2);
-                    Canvas.SetTop(point1, A.Y - point1.Height / 2);
-                    Canvas.SetLeft(point2, B.X - point2.Width / 2);
-                    Canvas.SetTop(point2, B.Y - point2.Height / 2);
+                    line2.X1 = A.X;
+                    line2.Y1 = A.Y;
+                    line2.X2 = B.X;
+                    line2.Y2 = B.Y;
                     return;
                 }
+                //不在一条斜线上，需要中间转折
+                if (deltaX == 0 || Math.Abs(deltaY/deltaX) > 1)
+                {
+                    //先竖线，再折线
+                    C.X = A.X;
+                    if (deltaY > 0)
+                    {
+                        C.Y = (int)(A.Y + deltaY - Math.Abs(deltaX));
+                    }
+                    else
+                    {
+                        C.Y = (int)(A.Y + deltaY + Math.Abs(deltaX));
+                    }
+                }
+                else
+                {
+                    //先横线，再折线
+                    C.Y = A.Y;
+                    if (deltaX > 0)
+                    {
+                        C.X = (int)(A.X + deltaX - Math.Abs(deltaY));
+                    }
+                    else
+                    {
+                        C.X = (int)(A.X + deltaX + Math.Abs(deltaY));
+                    }
+                }
+                //绘制两条直线
+                line1.X1 = A.X;
+                line1.Y1 = A.Y;
+                line1.X2 = C.X;
+                line1.Y2 = C.Y;
+                line2.X1 = C.X;
+                line2.Y1 = C.Y;
+                line2.X2 = B.X;
+                line2.Y2 = B.Y;
             }
         }
     }
