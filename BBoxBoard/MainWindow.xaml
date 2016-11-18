@@ -14,12 +14,7 @@
             <TextBlock x:Name="textBlock" Height="15.6" Canvas.Left="26.967" TextWrapping="Wrap" Text="删除" Canvas.Top="20.233" Width="24.8"/>
 
         </Canvas>
-        <ListView x:Name="listView" HorizontalAlignment="Left" Width="200" Height="648" VerticalAlignment="Top">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
+        <ListView x:Name="elecCompList" HorizontalAlignment="Left" Width="200" Height="648" VerticalAlignment="Top">
         </ListView>
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="72.8" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="200" FontSize="20" Text="Hello World！"/>
 

@@ -39,18 +39,12 @@ namespace BBoxBoard.Comp
             pressedElecComp = null;
         }
         
-        public void AddComp(ElecComp elecComp)
+        public void AddCompAndShow(ElecComp elecComp, Canvas canvas)
         {
             elecSet.Add(elecComp);
+            elecComp.ShowIn(canvas);
         }
-
-        public void ShowAll(Canvas canvas)
-        {
-            foreach (ElecComp elecComp in elecSet)
-            {
-                elecComp.ShowIn(canvas);
-            }
-        }
+        
 
         public void DeleteNowPressed(Canvas canvas)
         {

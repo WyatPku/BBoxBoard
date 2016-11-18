@@ -29,22 +29,55 @@ namespace BBoxBoard
         private ElecCompSet elecCompSet;
         private IntPoint PushDownPoint;
         private IntPoint HasMoved;
+        private List<Image> ImageArr;
 
         public MainWindow()
         {
             InitializeComponent();
-            UpdateList();
+            ImageArr = new List<Image>();
+            //MessageBox.Show("" + Environment.CurrentDirectory);
+            for (int i=0; i<2; i++)
+            {
+                Image image = new Image();
+                image.Width = 200;
+                image.Height = 150;
+                /*image.Source = new BitmapImage(new Uri("C:\\Users" +
+                    "\\37754\\Pictures\\doge.jpg"));*/
+                image.Source = new BitmapImage(new Uri(Environment.CurrentDirectory
+                    + "\\doge.jpg"));
+                ImageArr.Add(image);
+            }
+            this.elecCompList.ItemsSource = ImageArr;
+            this.elecCompList.MouseDoubleClick += ElecCompList_MouseDoubleClick;
+            //UpdateList();
             this.Mycanvas.MouseDown += Mycanvas_MouseDown;
             this.Mycanvas.MouseUp += Mycanvas_MouseUp;
             this.Mycanvas.MouseMove += Mycanvas_MouseMove;
             elecCompSet = new ElecCompSet();
-            elecCompSet.AddComp(new Resistance());
-            elecCompSet.AddComp(new Resistance());
-            elecCompSet.AddComp(new Capacity());
-            elecCompSet.AddComp(new Capacity());
-            elecCompSet.AddComp(new Capacity());
+            //elecCompSet.AddCompAndShow(new Resistance(), Mycanvas);
+            //elecCompSet.AddCompAndShow(new Capacity(), Mycanvas);
             //resistance2.Move(100, 200);
-            elecCompSet.ShowAll(Mycanvas);
+        }
+
+        private void ElecCompList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (elecCompList.SelectedItems.Count == 1)
+            {
+                //MessageBox.Show("Select: " + elecCompList.SelectedIndex);
+                switch (elecCompList.SelectedIndex)
+                {
+                    case 0:
+                        Resistance r = new Resistance();
+                        elecCompSet.AddCompAndShow(r, Mycanvas);
+                        r.Move(100, 100);
+                        break;
+                    case 1:
+                        Capacity c = new Capacity();
+                        elecCompSet.AddCompAndShow(c, Mycanvas);
+                        c.Move(100, 100);
+                        break;
+                }
+            }
         }
 
         private void Mycanvas_MouseMove(object sender, MouseEventArgs e)
@@ -104,7 +137,7 @@ namespace BBoxBoard
 
         private void UpdateList()
         {
-            this.listView.Items.Clear();
+            this.elecCompList.Items.Clear();
         }
 
         private IntPoint ToGrid(IntPoint point0)
