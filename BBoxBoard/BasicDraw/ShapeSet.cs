@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace BBoxBoard.BasicDraw
 {
@@ -19,6 +20,14 @@ namespace BBoxBoard.BasicDraw
         public void AddShape(MyShape myShape)
         {
             arr.Add(myShape);
+        }
+
+        public void RemoveAllFrom(Canvas canvas)
+        {
+            foreach (MyShape myShape in arr)
+            {
+                myShape.DeleteFrom(canvas);
+            }
         }
     }
 }

@@ -8,41 +8,51 @@ using System.Windows.Controls;
 
 namespace BBoxBoard.Comp
 {
-    public class Resistance : ElecComp
+    public class Capacity : ElecComp
     {
-        public Resistance() : base() { }
+        public Capacity() : base() { }
 
         public override void AddShapes()
         {
             //必须重新设置元件大小
             size.X = 60;
-            size.Y = 20;
+            size.Y = 40;
             //左边的导线
             MyShape line1 = new MyShape(MyShape.Shape_Line);
             line1.GetLine().Stroke = System.Windows.Media.Brushes.Red;
             line1.GetLine().X1 = 0;
-            line1.GetLine().Y1 = 10;
+            line1.GetLine().Y1 = 20;
             line1.GetLine().X2 = 30;
-            line1.GetLine().Y2 = 10;
+            line1.GetLine().Y2 = 20;
             line1.GetLine().StrokeThickness = 5;
             shapeSet.AddShape(line1);
-            //中间的长方形
-            MyShape rectangle = new MyShape(MyShape.Shape_Rectangle);
-            rectangle.GetRectangle().Fill = System.Windows.Media.Brushes.Black;
-            rectangle.GetRectangle().Width = 40;
-            rectangle.GetRectangle().Height = 20;
-            Canvas.SetLeft(rectangle.GetRectangle(), 30);
-            Canvas.SetTop(rectangle.GetRectangle(), 0);
-            shapeSet.AddShape(rectangle);
             //右边的导线
             MyShape line2 = new MyShape(MyShape.Shape_Line);
             line2.GetLine().Stroke = System.Windows.Media.Brushes.Red;
-            line2.GetLine().X1 = 70;
-            line2.GetLine().Y1 = 10;
-            line2.GetLine().X2 = 100;
-            line2.GetLine().Y2 = 10;
+            line2.GetLine().X1 = 40;
+            line2.GetLine().Y1 = 20;
+            line2.GetLine().X2 = 70;
+            line2.GetLine().Y2 = 20;
             line2.GetLine().StrokeThickness = 5;
             shapeSet.AddShape(line2);
+            //左极板
+            MyShape lineleft = new MyShape(MyShape.Shape_Line);
+            lineleft.GetLine().Stroke = System.Windows.Media.Brushes.Black;
+            lineleft.GetLine().X1 = 30;
+            lineleft.GetLine().Y1 = 0;
+            lineleft.GetLine().X2 = 30;
+            lineleft.GetLine().Y2 = 40;
+            lineleft.GetLine().StrokeThickness = 5;
+            shapeSet.AddShape(lineleft);
+            //右极板
+            MyShape lineRight = new MyShape(MyShape.Shape_Line);
+            lineRight.GetLine().Stroke = System.Windows.Media.Brushes.Black;
+            lineRight.GetLine().X1 = 40;
+            lineRight.GetLine().Y1 = 0;
+            lineRight.GetLine().X2 = 40;
+            lineRight.GetLine().Y2 = 40;
+            lineRight.GetLine().StrokeThickness = 5;
+            shapeSet.AddShape(lineRight);
             //左边的定位圆圈
             MyShape circle1 = new MyShape(MyShape.Shape_Ellipse);
             circle1.GetEllipse().Fill = System.Windows.Media.Brushes.Red;
@@ -51,7 +61,7 @@ namespace BBoxBoard.Comp
             circle1.GetEllipse().Width = 10;
             circle1.GetEllipse().Height = 10;
             Canvas.SetLeft(circle1.GetEllipse(), -5);
-            Canvas.SetTop(circle1.GetEllipse(), 5);
+            Canvas.SetTop(circle1.GetEllipse(), 15);
             shapeSet.AddShape(circle1);
             //右边的定位圆圈
             MyShape circle2 = new MyShape(MyShape.Shape_Ellipse);
@@ -60,8 +70,8 @@ namespace BBoxBoard.Comp
             circle2.GetEllipse().Stroke = System.Windows.Media.Brushes.Yellow;
             circle2.GetEllipse().Width = 10;
             circle2.GetEllipse().Height = 10;
-            Canvas.SetLeft(circle2.GetEllipse(), 95);
-            Canvas.SetTop(circle2.GetEllipse(), 5);
+            Canvas.SetLeft(circle2.GetEllipse(), 65);
+            Canvas.SetTop(circle2.GetEllipse(), 15);
             shapeSet.AddShape(circle2);
         }
     }

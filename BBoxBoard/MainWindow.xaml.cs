@@ -24,7 +24,7 @@ namespace BBoxBoard
     {
         public const int CanvasWidth = 985;
         public const int CanvasHeight = 715;
-        public const int GridLen = 20;
+        public const int GridLen = 10;
 
         private ElecCompSet elecCompSet;
         private IntPoint PushDownPoint;
@@ -33,19 +33,16 @@ namespace BBoxBoard
         public MainWindow()
         {
             InitializeComponent();
-            DrawLine drawLine = new DrawLine(Mycanvas);
-            DrawEllipse drawEllipse = new DrawEllipse(Mycanvas);
-            drawEllipse.Draw(0, 0);
-            drawEllipse.Draw(CanvasWidth, CanvasHeight);
             UpdateList();
             this.Mycanvas.MouseDown += Mycanvas_MouseDown;
             this.Mycanvas.MouseUp += Mycanvas_MouseUp;
             this.Mycanvas.MouseMove += Mycanvas_MouseMove;
             elecCompSet = new ElecCompSet();
-            Resistance resistance1 = new Resistance();
-            elecCompSet.AddComp(resistance1);
-            Resistance resistance2 = new Resistance();
-            elecCompSet.AddComp(resistance2);
+            elecCompSet.AddComp(new Resistance());
+            elecCompSet.AddComp(new Resistance());
+            elecCompSet.AddComp(new Capacity());
+            elecCompSet.AddComp(new Capacity());
+            elecCompSet.AddComp(new Capacity());
             //resistance2.Move(100, 200);
             elecCompSet.ShowAll(Mycanvas);
         }
@@ -74,6 +71,11 @@ namespace BBoxBoard
         {
             Mouse.Capture(null);
             //取消正在移动的东西，并刷新电路网格
+            Point p = e.GetPosition(Mycanvas);
+            if (p.X >= 10 && p.X <= 70 && p.Y >= 10 && p.Y <= 90)
+            {
+                elecCompSet.DeleteNowPressed(Mycanvas);
+            }
             elecCompSet.ReleaseElecComp();
         }
 

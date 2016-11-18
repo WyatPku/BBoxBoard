@@ -112,5 +112,10 @@ namespace BBoxBoard.BasicDraw
                     break;
             }
         }
+
+        public void DeleteFrom(Canvas canvas)
+        {
+            canvas.Children.Remove(shape);
+        }
     }
 }

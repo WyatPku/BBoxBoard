@@ -56,5 +56,9 @@ namespace BBoxBoard.Comp
             if (XYPoint.Y > P0.Y || XYPoint.Y < P0.Y - size.Y) return false;
             return true;
         }
+        public void RemoveAllFrom(Canvas canvas)
+        {
+            shapeSet.RemoveAllFrom(canvas);
+        }
     }
 }

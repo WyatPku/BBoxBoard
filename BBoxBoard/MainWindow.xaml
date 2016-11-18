@@ -10,7 +10,9 @@
         <Canvas 
             Name="Mycanvas"
             Margin="200,0,0,0">
-            
+            <Rectangle Fill="#FFF4F4F5" Height="80" Canvas.Left="10" Stroke="Black" Canvas.Top="10" Width="60"/>
+            <TextBlock x:Name="textBlock" Height="15.6" Canvas.Left="26.967" TextWrapping="Wrap" Text="删除" Canvas.Top="20.233" Width="24.8"/>
+
         </Canvas>
         <ListView x:Name="listView" HorizontalAlignment="Left" Width="200" Height="648" VerticalAlignment="Top">
             <ListView.View>

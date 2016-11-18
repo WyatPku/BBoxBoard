@@ -13,6 +13,7 @@ namespace BBoxBoard.Comp
     {
         List<ElecComp> elecSet;
         public ElecComp pressedElecComp;
+        private int pressedIndex;
 
         public ElecCompSet()
         {
@@ -24,11 +25,10 @@ namespace BBoxBoard.Comp
         {
             for (int i=0; i<elecSet.Count; i++)
             {
-                //MessageBox.Show("Founding:" + i + "\nX:" + point.X + "\nY:" + point.Y);
                 if (elecSet[i].IfInRegion(point))
                 {
                     pressedElecComp = elecSet[i];
-                    //MessageBox.Show("pressedElecComp" + pressedElecComp);
+                    pressedIndex = i;
                     return true;
                 }
             }
@@ -49,6 +49,15 @@ namespace BBoxBoard.Comp
             foreach (ElecComp elecComp in elecSet)
             {
                 elecComp.ShowIn(canvas);
+            }
+        }
+
+        public void DeleteNowPressed(Canvas canvas)
+        {
+            if (pressedElecComp != null)
+            {
+                pressedElecComp.RemoveAllFrom(canvas);
+                elecSet.Remove(pressedElecComp);
             }
         }
     }
