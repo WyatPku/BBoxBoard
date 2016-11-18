@@ -10,13 +10,14 @@
         <Canvas 
             Name="Mycanvas"
             Margin="200,0,0,0"/>
-        <ListView x:Name="listView" HorizontalAlignment="Left" Width="200">
+        <ListView x:Name="listView" HorizontalAlignment="Left" Width="200" Height="648" VerticalAlignment="Top">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="72.8" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="200" FontSize="20" Text="Hello World！"/>
 
     </Grid>
 </Window>

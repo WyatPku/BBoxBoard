@@ -65,6 +65,8 @@
     </Compile>
     <Compile Include="BasicDraw\DrawEllipse.cs" />
     <Compile Include="BasicDraw\DrawLine.cs" />
+    <Compile Include="BasicDraw\MyShape.cs" />
+    <Compile Include="Comp\Resistance.cs" />
     <Compile Include="BasicDraw\TransferXY.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
