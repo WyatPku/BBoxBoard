@@ -57,6 +57,16 @@ namespace BBoxBoard
             //elecCompSet.AddCompAndShow(new Resistance(), Mycanvas);
             //elecCompSet.AddCompAndShow(new Capacity(), Mycanvas);
             //resistance2.Move(100, 200);
+            this.KeyDown += MainWindow_KeyDown;
+        }
+
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.R && elecCompSet.pressedElecComp != null)
+            {
+                //MessageBox.Show("Rotating!");
+                elecCompSet.pressedElecComp.RotateLeft();
+            }
         }
 
         private void ElecCompList_MouseDoubleClick(object sender, MouseButtonEventArgs e)

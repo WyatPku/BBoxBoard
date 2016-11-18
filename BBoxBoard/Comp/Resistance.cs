@@ -17,6 +17,9 @@ namespace BBoxBoard.Comp
             //必须重新设置元件大小
             size.X = 60;
             size.Y = 20;
+            //定义外部接口的位置
+            RelativeInterface.Add(new IntPoint(0, 10)); //左端口
+            RelativeInterface.Add(new IntPoint(100, 10)); //右端口
             //左边的导线
             MyShape line1 = new MyShape(MyShape.Shape_Line);
             line1.GetLine().Stroke = System.Windows.Media.Brushes.Red;

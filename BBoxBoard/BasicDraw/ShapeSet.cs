@@ -29,5 +29,13 @@ namespace BBoxBoard.BasicDraw
                 myShape.DeleteFrom(canvas);
             }
         }
+        
+        public void RotateLeftAround(IntPoint center)
+        {
+            foreach (MyShape myShape in arr)
+            {
+                myShape.RotateLeftAround(center);
+            }
+        }
     }
 }

@@ -11,16 +11,20 @@ namespace BBoxBoard.Comp
 {
     public abstract class ElecComp
     {
+
         protected ShapeSet shapeSet;
         protected IntPoint XYPoint;
         protected IntPoint size;
         protected Canvas canvas;
+        protected List<IntPoint> RelativeInterface;
+        protected int RotatedState = 0;
 
         public ElecComp()
         {
             shapeSet = new ShapeSet();
             XYPoint = new IntPoint(0, 0);
             size = new IntPoint(MainWindow.GridLen, MainWindow.GridLen);
+            RelativeInterface = new List<IntPoint>();
             AddShapes();
         }
 
@@ -52,13 +56,48 @@ namespace BBoxBoard.Comp
         }
         public bool IfInRegion(IntPoint P0)
         {
-            if (XYPoint.X > P0.X || XYPoint.X < P0.X - size.X) return false;
-            if (XYPoint.Y > P0.Y || XYPoint.Y < P0.Y - size.Y) return false;
+            if (size.X > 0)
+            {
+                if (P0.X < XYPoint.X || P0.X > XYPoint.X + size.X) return false;
+            }
+            else
+            {
+                if (P0.X > XYPoint.X || P0.X < XYPoint.X + size.X) return false;
+            }
+            if (size.Y > 0)
+            {
+                if (P0.Y < XYPoint.Y || P0.Y > XYPoint.Y + size.Y) return false;
+            }
+            else
+            {
+                if (P0.Y > XYPoint.Y || P0.Y < XYPoint.Y + size.Y) return false;
+            }
             return true;
         }
         public void RemoveAllFrom(Canvas canvas)
         {
             shapeSet.RemoveAllFrom(canvas);
+        }
+        public void RotateLeft()
+        {
+            RotatedState++;
+            RotatedState %= 4;
+            shapeSet.RotateLeftAround(XYPoint);
+            foreach (IntPoint intPoint in RelativeInterface)
+            {
+                RotatePointAround(intPoint, XYPoint);
+            }
+            int sizeX = size.X;
+            int sizeY = size.Y;
+            size.X = sizeY;
+            size.Y = -sizeX;
+        }
+        private void RotatePointAround(IntPoint itface, IntPoint center)
+        {
+            int deltaX = itface.X - center.X;
+            int deltaY = itface.Y - center.Y;
+            itface.X = center.X + deltaY;
+            itface.Y = center.Y - deltaX;
         }
     }
 }

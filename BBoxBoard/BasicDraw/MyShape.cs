@@ -117,5 +117,53 @@ namespace BBoxBoard.BasicDraw
         {
             canvas.Children.Remove(shape);
         }
+
+        public void RotateLeftAround(IntPoint center)
+        {
+            switch (WHAT)
+            {
+                case Shape_Line:
+                    Line line = (Line)shape;
+                    double deltaX1 = line.X1 - center.X;
+                    double deltaY1 = line.Y1 - center.Y;
+                    line.X1 = center.X + deltaY1;
+                    line.Y1 = center.Y - deltaX1;
+                    double deltaX2 = line.X2 - center.X;
+                    double deltaY2 = line.Y2 - center.Y;
+                    line.X2 = center.X + deltaY2;
+                    line.Y2 = center.Y - deltaX2;
+                    break;
+                case Shape_Rectangle:
+                    Rectangle rectangle = (Rectangle)shape;
+                    double CX = Canvas.GetLeft(rectangle) + rectangle.Width/2;
+                    double CY = Canvas.GetTop(rectangle) + rectangle.Height/2;
+                    double deltaX_Rect = CX - center.X;
+                    double deltaY_Rect = CY - center.Y;
+                    CX = center.X + deltaY_Rect;
+                    CY = center.Y - deltaX_Rect;
+                    double RectWidth = rectangle.Width;
+                    double RectHeight = rectangle.Height;
+                    rectangle.Width = RectHeight;
+                    rectangle.Height = RectWidth;
+                    Canvas.SetLeft(rectangle, CX - RectHeight / 2);
+                    Canvas.SetTop(rectangle, CY - RectWidth / 2);
+                    break;
+                case Shape_Ellipse:
+                    Ellipse ellipse = (Ellipse)shape;
+                    double CX2 = Canvas.GetLeft(ellipse) + ellipse.Width / 2;
+                    double CY2 = Canvas.GetTop(ellipse) + ellipse.Height / 2;
+                    double deltaX_Elli = CX2 - center.X;
+                    double deltaY_Elli = CY2 - center.Y;
+                    CX2 = center.X + deltaY_Elli;
+                    CY2 = center.Y - deltaX_Elli;
+                    double ElliWidth = ellipse.Width;
+                    double ElliHeight = ellipse.Height;
+                    ellipse.Width = ElliHeight;
+                    ellipse.Height = ElliWidth;
+                    Canvas.SetLeft(ellipse, CX2 - ElliHeight / 2);
+                    Canvas.SetTop(ellipse, CY2 - ElliWidth / 2);
+                    break;
+            }
+        }
     }
 }
