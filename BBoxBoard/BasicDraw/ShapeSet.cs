@@ -37,5 +37,15 @@ namespace BBoxBoard.BasicDraw
                 myShape.RotateLeftAround(center);
             }
         }
+
+        public bool IsPossibleWire()
+        {
+            if (arr.Count != 4) return false;
+            if (arr[0].GetLine() == null) return false;
+            if (arr[1].GetLine() == null) return false;
+            if (arr[2].GetEllipse() == null) return false;
+            if (arr[3].GetEllipse() == null) return false;
+            return true;
+        }
     }
 }

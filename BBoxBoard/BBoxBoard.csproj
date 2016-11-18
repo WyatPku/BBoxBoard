@@ -71,6 +71,7 @@
     <Compile Include="Comp\ElecCompSet.cs" />
     <Compile Include="Comp\Resistance.cs" />
     <Compile Include="BasicDraw\TransferXY.cs" />
+    <Compile Include="Comp\Wire.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

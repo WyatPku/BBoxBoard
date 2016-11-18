@@ -36,7 +36,7 @@ namespace BBoxBoard
             InitializeComponent();
             ImageArr = new List<Image>();
             //MessageBox.Show("" + Environment.CurrentDirectory);
-            for (int i=0; i<2; i++)
+            for (int i=0; i<3; i++)
             {
                 Image image = new Image();
                 image.Width = 200;
@@ -67,6 +67,17 @@ namespace BBoxBoard
                 //MessageBox.Show("Rotating!");
                 elecCompSet.pressedElecComp.RotateLeft();
             }
+            else if (e.Key == Key.D && elecCompSet.pressedElecComp != null)
+            {
+                if (elecCompSet.pressedElecComp.IsWire)
+                {
+                    elecCompSet.pressedElecComp.State = ElecComp.State_AdjRight;
+                }
+            }
+            else if (e.Key == Key.S && elecCompSet.pressedElecComp != null)
+            {
+                elecCompSet.pressedElecComp.State = ElecComp.State_Move;
+            }
         }
 
         private void ElecCompList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -85,6 +96,11 @@ namespace BBoxBoard
                         Capacity c = new Capacity();
                         elecCompSet.AddCompAndShow(c, Mycanvas);
                         c.Move(100, 100);
+                        break;
+                    case 2:
+                        Wire w = new Wire();
+                        elecCompSet.AddCompAndShow(w, Mycanvas);
+                        w.Move(100, 100);
                         break;
                 }
             }
