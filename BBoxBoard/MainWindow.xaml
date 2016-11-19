@@ -12,6 +12,20 @@
             Margin="200,0,0,0">
             <Rectangle Fill="#FFF4F4F5" Height="80" Canvas.Left="10" Stroke="Black" Canvas.Top="10" Width="60"/>
             <TextBlock x:Name="textBlock" Height="15.6" Canvas.Left="26.967" TextWrapping="Wrap" Text="删除" Canvas.Top="20.233" Width="24.8"/>
+            <Path Data="M121.9,79.1 C126.7,198.3 124.2,136.6 126.2,198.2 128.2,259.8 341.10016,176.6 108.59999,89.799998 -123.90017,2.9999994 400.19942,-31.799884 101.5,84.599993" Fill="#FF6C6CD7" Height="96.826" Canvas.Left="823.175" Stretch="Fill" Stroke="Black" Canvas.Top="10" Width="81.329"/>
+            <Ellipse Fill="Red" Height="18.977" Canvas.Left="883.578" Stroke="Black" Canvas.Top="37.097" Width="20.926"/>
+            <Path Data="M235.1,11.1 C366.3,209.5 367.80001,213.8 367.80001,213.8" Fill="#FF2ECD3B" Height="96.826" Canvas.Left="916.299" Stretch="Fill" Stroke="#FF1BED69" Canvas.Top="10" Width="63.585" StrokeThickness="10"/>
+            <Path Data="M235.1,11.1 C366.3,209.5 367.80001,213.8 367.80001,213.8" Fill="#FF2ECD3B" Height="96.826" Canvas.Left="903.6" Stretch="Fill" Stroke="#FF1BED69" Canvas.Top="9.816" Width="63.11" StrokeThickness="10" RenderTransformOrigin="0.5,0.5">
+                <Path.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Path.RenderTransform>
+            </Path>
+
 
         </Canvas>
         <ListView x:Name="elecCompList" HorizontalAlignment="Left" Width="200" Height="648" VerticalAlignment="Top">
