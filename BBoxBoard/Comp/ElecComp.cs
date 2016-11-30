@@ -44,6 +44,8 @@ namespace BBoxBoard.Comp
         }
 
         public virtual void AddShapes() { }
+        public virtual ElecFeature GetElecFeature() { return new ElecFeature(); }
+
         public void ShowIn(Canvas canvas_)
         {
             canvas = canvas_;
@@ -283,7 +285,7 @@ namespace BBoxBoard.Comp
             {
                 A.Add(new IntPoint(p.X + XYPoint.X, p.Y + XYPoint.Y));
             }
-            return new BriefElecComp(Comp, A);
+            return new BriefElecComp(Comp, A, this);
         }
     }
 }

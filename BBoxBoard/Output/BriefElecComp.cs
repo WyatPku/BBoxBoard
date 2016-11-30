@@ -1,4 +1,5 @@
 ﻿using BBoxBoard.BasicDraw;
+using BBoxBoard.Comp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,14 +15,16 @@ namespace BBoxBoard.Output
         public const int Comp_Resistance = 1;
         public const int Comp_Capacity = 2;
         public const int Comp_Inductance = 3;
+        public ElecComp elecComp;
 
         public int Comp;
         public List<IntPoint> Interfaces; //这个列表是按顺序来的，对于二极管这种，是有正负极先后顺序的
 
-        public BriefElecComp(int Comp_, List<IntPoint> Interfaces_)
+        public BriefElecComp(int Comp_, List<IntPoint> Interfaces_, ElecComp elecComp_)
         {
             Comp = Comp_;
             Interfaces = Interfaces_;
+            elecComp = elecComp_;
         }
 
         public override string ToString()
@@ -49,6 +52,18 @@ namespace BBoxBoard.Output
                 A += "(" + intPoint.X + "," + intPoint.Y + ")";
             }
             return A;
+        }
+
+        //把所有的A变成B
+        public void ReplaceWith(IntPoint A, IntPoint B)
+        {
+            for (int i=0; i<Interfaces.Count; i++)
+            {
+                if (Interfaces[i].X == A.X && Interfaces[i].Y == A.Y)
+                {
+                    Interfaces[i] = B;
+                }
+            }
         }
     }
 }

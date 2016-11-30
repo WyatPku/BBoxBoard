@@ -1,4 +1,5 @@
 ﻿using BBoxBoard.BasicDraw;
+using BBoxBoard.Output;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,14 @@ namespace BBoxBoard.Comp
 {
     public class Capacity : ElecComp
     {
+        CapacityElecFeature capacityElecFeature;
+
         public Capacity() : base() { }
 
         public override void AddShapes()
         {
+            capacityElecFeature = new CapacityElecFeature(1e-7);
+
             //设置类型
             Comp = Comp_Capacity;
             //必须重新设置元件大小
@@ -78,6 +83,27 @@ namespace BBoxBoard.Comp
             Canvas.SetLeft(circle2.GetEllipse(), 65);
             Canvas.SetTop(circle2.GetEllipse(), 15);
             shapeSet.AddShape(circle2);
+        }
+
+        class CapacityElecFeature : ElecFeature
+        {
+            public double Q;
+            public double C;
+
+            public CapacityElecFeature(double C_) : base()
+            {
+                Q = 0;
+                C = C_;
+            }
+
+            public override double GetNext(double deltaT)
+            {
+                return base.GetNext(deltaT);
+            }
+        }
+        public override ElecFeature GetElecFeature()
+        {
+            return capacityElecFeature;
         }
     }
 }

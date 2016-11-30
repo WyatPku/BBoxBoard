@@ -26,5 +26,19 @@ namespace BBoxBoard.BasicDraw
             X = (int)point.X;
             Y = (int)point.Y;
         }
+        public IntPoint(IntPoint point)
+        {
+            X = point.X;
+            Y = point.Y;
+        }
+        public override bool Equals(object obj)
+        {
+            IntPoint A = (IntPoint)obj;
+            return (A.X == X && A.Y == Y);
+        }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using BBoxBoard.BasicDraw;
 using BBoxBoard.Comp;
 using BBoxBoard.Output;
+using BBoxBoard.PicAnalysis;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,12 +31,13 @@ namespace BBoxBoard
         private ElecCompSet elecCompSet;
         private IntPoint PushDownPoint;
         private IntPoint HasMoved;
-        private List<Image> ImageArr;
+        //private List<Image> ImageArr;
+        private List<String> StringArr;
 
         public MainWindow()
         {
             InitializeComponent();
-            ImageArr = new List<Image>();
+            /*ImageArr = new List<Image>();
             //MessageBox.Show("" + Environment.CurrentDirectory);
             for (int i=0; i<4; i++)
             {
@@ -43,12 +45,18 @@ namespace BBoxBoard
                 image.Width = 200;
                 image.Height = 150;
                 /*image.Source = new BitmapImage(new Uri("C:\\Users" +
-                    "\\37754\\Pictures\\doge.jpg"));*/
+                    "\\37754\\Pictures\\doge.jpg"));
                 image.Source = new BitmapImage(new Uri(Environment.CurrentDirectory
                     + "\\doge.jpg"));
                 ImageArr.Add(image);
-            }
-            this.elecCompList.ItemsSource = ImageArr;
+            }*/
+            StringArr = new List<string>();
+            StringArr.Add("电阻");
+            StringArr.Add("电容");
+            StringArr.Add("导线");
+            StringArr.Add("电感");
+            this.elecCompList.ItemsSource = StringArr;
+            //this.elecCompList.ItemsSource = ImageArr;
             this.elecCompList.MouseDoubleClick += ElecCompList_MouseDoubleClick;
             //UpdateList();
             this.Mycanvas.MouseDown += Mycanvas_MouseDown;
@@ -59,10 +67,47 @@ namespace BBoxBoard
             //elecCompSet.AddCompAndShow(new Capacity(), Mycanvas);
             //resistance2.Move(100, 200);
             this.KeyDown += MainWindow_KeyDown;
+            InitTest();
+        }
+
+        private void InitTest()
+        {
+            Resistance r1 = new Resistance();
+            Resistance r2 = new Resistance();
+            Capacity c1 = new Capacity();
+            Capacity c2 = new Capacity();
+            Capacity c3 = new Capacity();
+            Wire w1 = new Wire();
+            Wire w2 = new Wire();
+            elecCompSet.AddCompAndShow(w1, Mycanvas);
+            elecCompSet.AddCompAndShow(w2, Mycanvas);
+            elecCompSet.AddCompAndShow(r1, Mycanvas);
+            elecCompSet.AddCompAndShow(r2, Mycanvas);
+            elecCompSet.AddCompAndShow(c1, Mycanvas);
+            elecCompSet.AddCompAndShow(c2, Mycanvas);
+            elecCompSet.AddCompAndShow(c3, Mycanvas);
+            r1.Move(200, 300);
+            r2.Move(200, 400);
+            c1.Move(280, 310);
+            c2.Move(300, 220);
+            c3.Move(300, 290);
+            w1.Move(200, 310);
+            w2.Move(400, 60);
+            w1.State = ElecComp.State_AdjRight;
+            w2.State = ElecComp.State_AdjRight;
+            w1.Move(150, -250);
+            w2.Move(-80, 180);
+            c1.RotateLeft();
         }
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.Key == Key.T) //Transform
+            {
+                List<BriefElecComp> A = GetAllComp();
+                SimplifiedPic simplifiedPic = new SimplifiedPic(A);
+                
+            }
             if (e.Key == Key.O)
             {
                 List<BriefElecComp> A = GetAllComp();
