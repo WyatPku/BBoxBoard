@@ -311,6 +311,11 @@ namespace BBoxBoard.PicAnalysis
             {
                 str += "(" + path[i].X + "," + path[i].Y + ")";
             }
+            str += "\r\nMap:";
+            for (int i=0; i< MapEquation2.Count; i++)
+            {
+                str += "(" + MapEquation2[i] + ")";
+            }
             MessageBox.Show(str);
             //获得一个回路，填充到方程中去
             //对于每一个步骤，寻找一个原件匹配
@@ -335,6 +340,7 @@ namespace BBoxBoard.PicAnalysis
             }
             //下一层递归
             RoundArr.RemoveAt(0);
+            MapEquation2.RemoveAt(0); //修复这个严重的Bug了！
             return GetNextLoopEquation(startIndex + 1, Equation, RoundArr, MapEquation2);
         }
 
