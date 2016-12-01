@@ -319,6 +319,12 @@ namespace BBoxBoard.PicAnalysis
             MessageBox.Show(str);
             //获得一个回路，填充到方程中去
             //对于每一个步骤，寻找一个原件匹配
+            //debug：不能找相同的元件，需要把找没找过用List记录下来
+            bool[] canBeSelect = new bool[RoundArr.Count];
+            for (int i=0; i < canBeSelect.Count(); i++)
+            {
+                canBeSelect[i] = true;
+            }
             for (int i=0; i< Arr.Count; i++)
             {
                 //归零
@@ -328,13 +334,17 @@ namespace BBoxBoard.PicAnalysis
             {
                 for (int j=0; j< RoundArr.Count; j++)
                 {
-                    int IsBetweenFoot = RoundArr[j].IsBetweenFoot
-                        (path[i].X, path[i].Y);
-                    if (IsBetweenFoot != 0)
+                    if (canBeSelect[j])
                     {
-                        Equation[startIndex, MapEquation2[j]] = IsBetweenFoot /
-                            RoundArr[j].rC;
-                        break;
+                        int IsBetweenFoot = RoundArr[j].IsBetweenFoot
+                        (path[i].X, path[i].Y);
+                        if (IsBetweenFoot != 0)
+                        {
+                            Equation[startIndex, MapEquation2[j]] = IsBetweenFoot /
+                                RoundArr[j].rC;
+                            canBeSelect[j] = false;
+                            break;
+                        }
                     }
                 }
             }
