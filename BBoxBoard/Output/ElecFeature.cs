@@ -16,7 +16,7 @@ namespace BBoxBoard.Output
 
         public ElecFeature()
         {
-            rC = 1e-12;
+            rC = 1e-8;
             rQ = 0;
         }
 

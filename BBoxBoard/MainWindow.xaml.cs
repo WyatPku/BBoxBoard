@@ -101,7 +101,7 @@ namespace BBoxBoard
                 MessageBox.Show("模拟:" + i);
                 this.Title = "";
             }*/
-            Processing processing = new Processing(GetAllComp());
+            Processing processing = new Processing(GetAllComp(), 1e-6, 10);
             this.IsRuning = false;
             MessageBox.Show("模拟结束！");
         }

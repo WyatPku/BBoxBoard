@@ -1,4 +1,5 @@
 ﻿using BBoxBoard.BasicDraw;
+using BBoxBoard.Output;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -138,6 +139,30 @@ namespace BBoxBoard.Comp
             pointC.Add(new Point(78, 6.90983));
             pointC.Add(new Point(79, 8.43566));
             pointC.Add(new Point(80, 10.0));
+        }
+
+        public override ElecFeature GetElecFeature()
+        {
+            return new InductanceElecFeature(25);
+        }
+
+        class InductanceElecFeature : ElecFeature
+        {
+            private double I;
+            private double L;
+
+            public InductanceElecFeature(double L_) : base()
+            {
+                I = 0;
+                L = L_;
+            }
+            public override double GetNext(double deltaT)
+            {
+                double U = rQ / rC;
+                I += U / L * deltaT;
+                rQ -= I * deltaT;
+                return rQ;
+            }
         }
     }
 }

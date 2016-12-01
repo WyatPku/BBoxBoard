@@ -105,7 +105,7 @@ namespace BBoxBoard.Comp
         {
             public double U;
             private double Tsum = 0;
-            private const double ShowT = 1e-5;
+            private const double ShowT = 1e-3;
             private double Meter_R;
             public ShowingData showingData;
 

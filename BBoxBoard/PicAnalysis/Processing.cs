@@ -14,17 +14,21 @@ namespace BBoxBoard.PicAnalysis
         List<BriefElecComp> Arr;
         List<ElecFeature> ElecArr;
         double deltaT = 1e-10;
+        double lastingT;
 
-        public Processing(List<BriefElecComp> Arr_)
+        public Processing(List<BriefElecComp> Arr_, double deltaT_, 
+            double lastingT_)
         {
+            deltaT = deltaT_;
+            lastingT = lastingT_;
             ElecArr = new List<ElecFeature>();
             Arr = Arr_;
             SimplifiedPic simplifiedPic = new SimplifiedPic(Arr);
             ElecArr = simplifiedPic.FeatureArr;
             A = simplifiedPic.A; //获得变换矩阵
             double T = 0;
-            int Count = 0;
-            while (T < 3e-4)
+            //int Count = 0;
+            while (T < /*3e-4*/ lastingT)
             {
                 double[] QpArr = new double[ElecArr.Count];
                 for (int i = 0; i < ElecArr.Count; i++)
@@ -41,6 +45,7 @@ namespace BBoxBoard.PicAnalysis
                     }
                     ElecArr[i].rQ = rQ;
                 }
+                /*
                 if (Count == 1000)
                 {
                     Count = 0;
@@ -50,14 +55,14 @@ namespace BBoxBoard.PicAnalysis
                         //    ElecArr[i].GetrQ());
                         /*pfArr[i].Segments.Add(new LineSegment(
                             new Point(1024 * T / 3e-4,
-                            -ElecArr[i].GetrQ() / ElecArr[i].GetrC() * 50), true));*/
+                            -ElecArr[i].GetrQ() / ElecArr[i].GetrC() * 50), true));
                     }
                     //MessageBox.Show("I=" + inductor.I + ", U=" +
                     //    ElecArr[2].GetrQ() / ElecArr[2].GetrC());
                     //MessageBox.Show("Usum=" + (ElecArr[1].GetrQ() / ElecArr[1].GetrC() +
                     //    ElecArr[2].GetrQ() / ElecArr[2].GetrC()));
                 }
-                Count++;
+                Count++;*/
                 T += deltaT;
                 String str = "";
                 for (int i = 0; i < ElecArr.Count; i++)

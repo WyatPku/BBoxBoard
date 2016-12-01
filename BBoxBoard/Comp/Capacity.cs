@@ -98,12 +98,15 @@ namespace BBoxBoard.Comp
 
             public override double GetNext(double deltaT)
             {
-                return base.GetNext(deltaT);
+                double Qsum = rQ + Q;
+                Q = Qsum * C / (rC + C);
+                rQ = Qsum * rC / (rC + C);
+                return rQ;
             }
         }
         public override ElecFeature GetElecFeature()
         {
-            return capacityElecFeature;
+            return new CapacityElecFeature(0.01);
         }
     }
 }
