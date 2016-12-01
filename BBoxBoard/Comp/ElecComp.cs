@@ -20,6 +20,9 @@ namespace BBoxBoard.Comp
         public const int Comp_Resistance = 1;
         public const int Comp_Capacity = 2;
         public const int Comp_Inductance = 3;
+        public const int Comp_OhmMeter = 4;
+        public const int Comp_VoltMeter = 5;
+        public const int Comp_IMeter = 6;
 
         protected ShapeSet shapeSet;
         protected IntPoint XYPoint;
@@ -45,6 +48,7 @@ namespace BBoxBoard.Comp
 
         public virtual void AddShapes() { }
         public virtual ElecFeature GetElecFeature() { return new ElecFeature(); }
+        public virtual bool DeletingCmd() { return true; }
 
         public void ShowIn(Canvas canvas_)
         {

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +28,8 @@ namespace BBoxBoard
         public const int CanvasWidth = 985;
         public const int CanvasHeight = 715;
         public const int GridLen = 10;
+        public bool IsRuning;
+        Thread mThread;
 
         private ElecCompSet elecCompSet;
         private IntPoint PushDownPoint;
@@ -36,6 +39,7 @@ namespace BBoxBoard
 
         public MainWindow()
         {
+            IsRuning = false;
             InitializeComponent();
             /*ImageArr = new List<Image>();
             //MessageBox.Show("" + Environment.CurrentDirectory);
@@ -55,6 +59,7 @@ namespace BBoxBoard
             StringArr.Add("电容");
             StringArr.Add("导线");
             StringArr.Add("电感");
+            StringArr.Add("电阻表");
             this.elecCompList.ItemsSource = StringArr;
             //this.elecCompList.ItemsSource = ImageArr;
             this.elecCompList.MouseDoubleClick += ElecCompList_MouseDoubleClick;
@@ -68,10 +73,41 @@ namespace BBoxBoard
             //resistance2.Move(100, 200);
             this.KeyDown += MainWindow_KeyDown;
             InitTest();
+            this.start_button.Click += Start_button_Click;
+        }
+
+        private void Start_button_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsRuning)
+            {
+                mThread.Abort();
+                MessageBox.Show("强行中断模拟！");
+                IsRuning = false;
+            }
+            else
+            {
+                mThread = new Thread(Elec_Run);
+                mThread.Start();
+            }
+        }
+
+        private void Elec_Run()
+        {
+            this.IsRuning = true;
+            //MessageBox.Show("模拟中！");
+            /*for (int i=0; i<100; i++)
+            {
+                Thread.Sleep(2000);
+                MessageBox.Show("模拟:" + i);
+                this.Title = "";
+            }*/
+            Processing processing = new Processing(GetAllComp());
+            this.IsRuning = false;
+            MessageBox.Show("模拟结束！");
         }
 
         private void InitTest()
-        {
+        {/*
             Resistance r1 = new Resistance();
             Resistance r2 = new Resistance();
             Capacity c1 = new Capacity();
@@ -97,7 +133,7 @@ namespace BBoxBoard
             w2.State = ElecComp.State_AdjRight;
             w1.Move(150, -250);
             w2.Move(-80, 180);
-            c1.RotateLeft();
+            c1.RotateLeft();*/
         }
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
@@ -106,7 +142,6 @@ namespace BBoxBoard
             {
                 List<BriefElecComp> A = GetAllComp();
                 SimplifiedPic simplifiedPic = new SimplifiedPic(A);
-                
             }
             if (e.Key == Key.O)
             {
@@ -166,6 +201,11 @@ namespace BBoxBoard
                         Inductance i = new Inductance();
                         elecCompSet.AddCompAndShow(i, Mycanvas);
                         i.Move(100, 100);
+                        break;
+                    case 4:
+                        OhmMeter o = new OhmMeter();
+                        elecCompSet.AddCompAndShow(o, Mycanvas);
+                        o.Move(100, 100);
                         break;
                 }
             }

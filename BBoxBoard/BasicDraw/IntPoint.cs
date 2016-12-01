@@ -40,5 +40,9 @@ namespace BBoxBoard.BasicDraw
         {
             return base.GetHashCode();
         }
+        public IntPoint GetGROUD()
+        {
+            return new IntPoint(-1000, -1000);
+        }
     }
 }

@@ -16,9 +16,9 @@ namespace BBoxBoard.PicAnalysis
     public class SimplifiedPic
     {
         List<IntPoint> PointArr;
-        List<ElecFeature> FeatureArr;
+        public List<ElecFeature> FeatureArr;
         List<ElecStructure> StructureArr;
-        double[,] A;
+        public double[,] A;
 
         public SimplifiedPic(List<BriefElecComp> Arr)
         {

@@ -30,7 +30,8 @@
         </Canvas>
         <ListView x:Name="elecCompList" HorizontalAlignment="Left" Width="200" Height="648" VerticalAlignment="Top">
         </ListView>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="72.8" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="200" FontSize="20" Text="Hello World！"/>
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" TextWrapping="Wrap" Width="200" FontSize="20" Text="Hello World！" Margin="0,648,0,44.267"/>
+        <Button x:Name="start_button" Content="开始/中断模拟" HorizontalAlignment="Left" Height="44.267" VerticalAlignment="Bottom" Width="200" FontSize="24"/>
 
     </Grid>
 </Window>

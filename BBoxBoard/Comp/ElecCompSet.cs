@@ -49,7 +49,7 @@ namespace BBoxBoard.Comp
 
         public void DeleteNowPressed(Canvas canvas)
         {
-            if (pressedElecComp != null)
+            if (pressedElecComp != null && pressedElecComp.DeletingCmd())
             {
                 pressedElecComp.RemoveAllFrom(canvas);
                 elecSet.Remove(pressedElecComp);

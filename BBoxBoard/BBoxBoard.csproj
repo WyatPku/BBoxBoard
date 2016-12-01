@@ -56,6 +56,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Equipment\Ohmmeter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,10 +75,15 @@
     <Compile Include="Comp\ElecComp.cs" />
     <Compile Include="Comp\ElecCompSet.cs" />
     <Compile Include="Comp\Inductance.cs" />
+    <Compile Include="Comp\OhmMeter.cs" />
     <Compile Include="Comp\Power.cs" />
     <Compile Include="Comp\Resistance.cs" />
     <Compile Include="BasicDraw\TransferXY.cs" />
     <Compile Include="Comp\Wire.cs" />
+    <Compile Include="Equipment\Ohmmeter.xaml.cs">
+      <DependentUpon>Ohmmeter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment\ShowingData.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -84,6 +93,7 @@
     <Compile Include="Output\BriefElecComp.cs" />
     <Compile Include="Output\ElecFeature.cs" />
     <Compile Include="Output\ElecStructure.cs" />
+    <Compile Include="PicAnalysis\Processing.cs" />
     <Compile Include="PicAnalysis\SimplifiedPic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -1,22 +1,28 @@
 ﻿using BBoxBoard.BasicDraw;
+using BBoxBoard.Equipment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using BBoxBoard.Output;
 
 namespace BBoxBoard.Comp
 {
-    public class Resistance : ElecComp
+    public class OhmMeter : ElecComp
     {
-        public Resistance() : base() { }
+        private Ohmmeter ohmmeterWindow;
+        public bool CanbeClosed = false;
+        public ShowingData showingData;
+
+        public OhmMeter() : base() { }
 
         public override void AddShapes()
         {
             //设置类型
-            Comp = Comp_Resistance;
+            Comp = Comp_OhmMeter;
             //必须重新设置元件大小
             size.X = 100;
             size.Y = 20;
@@ -25,7 +31,7 @@ namespace BBoxBoard.Comp
             RelativeInterface.Add(new IntPoint(100, 10)); //右端口
             //左边的导线
             MyShape line1 = new MyShape(MyShape.Shape_Line);
-            line1.GetLine().Stroke = System.Windows.Media.Brushes.Red;
+            line1.GetLine().Stroke = System.Windows.Media.Brushes.Yellow;
             line1.GetLine().X1 = 0;
             line1.GetLine().Y1 = 10;
             line1.GetLine().X2 = 30;
@@ -34,7 +40,7 @@ namespace BBoxBoard.Comp
             shapeSet.AddShape(line1);
             //中间的长方形
             MyShape rectangle = new MyShape(MyShape.Shape_Rectangle);
-            rectangle.GetRectangle().Fill = System.Windows.Media.Brushes.Black;
+            rectangle.GetRectangle().Fill = System.Windows.Media.Brushes.Yellow;
             rectangle.GetRectangle().Width = 40;
             rectangle.GetRectangle().Height = 20;
             Canvas.SetLeft(rectangle.GetRectangle(), 30);
@@ -42,7 +48,7 @@ namespace BBoxBoard.Comp
             shapeSet.AddShape(rectangle);
             //右边的导线
             MyShape line2 = new MyShape(MyShape.Shape_Line);
-            line2.GetLine().Stroke = System.Windows.Media.Brushes.Red;
+            line2.GetLine().Stroke = System.Windows.Media.Brushes.Yellow;
             line2.GetLine().X1 = 70;
             line2.GetLine().Y1 = 10;
             line2.GetLine().X2 = 100;
@@ -69,22 +75,53 @@ namespace BBoxBoard.Comp
             Canvas.SetLeft(circle2.GetEllipse(), 95);
             Canvas.SetTop(circle2.GetEllipse(), 5);
             shapeSet.AddShape(circle2);
+
+            showingData = new ShowingData("" + 101230 + "ohm");
+            ohmmeterWindow = new Ohmmeter(this);
+            ohmmeterWindow.Show();
+            showingData.SimpleData = "gagagag";
+        }
+        public override bool DeletingCmd()
+        {
+            if (MessageBox.Show("确定要退出欧姆表吗？", 
+                "询问", MessageBoxButton.YesNo, 
+                MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                CanbeClosed = true;
+                ohmmeterWindow.Close();
+                return true;
+            }
+            return false;
         }
         public override ElecFeature GetElecFeature()
         {
-            ResistanceElecFeature resistanceElecFeature =
-                new ResistanceElecFeature();
-            resistanceElecFeature.R = 1000;
-            return resistanceElecFeature;
+            OhmMeterElecFeature ohmMeterElecFeature
+                 = new OhmMeterElecFeature();
+            ohmMeterElecFeature.U = 5; //5V的电压
+            ohmMeterElecFeature.showingData = showingData;
+            return ohmMeterElecFeature;
         }
-        class ResistanceElecFeature : ElecFeature
+        class OhmMeterElecFeature : ElecFeature
         {
-            public double R;
+            public double U;
+            private double Tsum = 0;
+            private const double ShowT = 1e-5;
+            private double Meter_R;
+            public ShowingData showingData;
+
             public override double GetNext(double deltaT)
             {
-                double U = rQ / rC;
-                double I = U / R;
-                rQ -= I * deltaT;
+                Tsum += deltaT;
+                if (Tsum > ShowT)
+                {
+                    //MessageBox.Show("Show R!");
+                    double deltaQ = rC * U - rQ;
+                    double I = deltaQ / deltaT;
+                    Meter_R = U / I - deltaT / rC;
+                    Tsum = 0;
+                    showingData.SimpleData = "" + Meter_R;
+                }
+                rQ = rC * U;
                 return rQ;
             }
         }
