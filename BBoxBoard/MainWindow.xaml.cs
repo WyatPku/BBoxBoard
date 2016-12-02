@@ -53,6 +53,7 @@ namespace BBoxBoard
             StringArr.Add("导线");
             StringArr.Add("电感");
             StringArr.Add("电阻表");
+            StringArr.Add("电压表");
             this.elecCompList.ItemsSource = StringArr;
             //this.elecCompList.ItemsSource = ImageArr;
             this.elecCompList.MouseDoubleClick += ElecCompList_MouseDoubleClick;
@@ -200,6 +201,11 @@ namespace BBoxBoard
                         OhmMeter o = new OhmMeter();
                         elecCompSet.AddCompAndShow(o, Mycanvas);
                         o.Move(100, 100);
+                        break;
+                    case 5:
+                        VoltMeter ee = new VoltMeter();
+                        elecCompSet.AddCompAndShow(ee, Mycanvas);
+                        ee.Move(100, 100);
                         break;
                 }
             }

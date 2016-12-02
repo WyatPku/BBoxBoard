@@ -60,6 +60,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Equipment\Voltmeter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -79,11 +83,15 @@
     <Compile Include="Comp\Power.cs" />
     <Compile Include="Comp\Resistance.cs" />
     <Compile Include="BasicDraw\TransferXY.cs" />
+    <Compile Include="Comp\VoltMeter.cs" />
     <Compile Include="Comp\Wire.cs" />
     <Compile Include="Equipment\Ohmmeter.xaml.cs">
       <DependentUpon>Ohmmeter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Equipment\ShowingData.cs" />
+    <Compile Include="Equipment\Voltmeter.xaml.cs">
+      <DependentUpon>Voltmeter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
