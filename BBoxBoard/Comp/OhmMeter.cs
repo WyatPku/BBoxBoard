@@ -81,8 +81,14 @@ namespace BBoxBoard.Comp
             ohmmeterWindow.Show();
             showingData.SimpleData = "gagagag";
         }
-        public override bool DeletingCmd()
+        public override bool DeletingCmd(bool IsFinal)
         {
+            if (IsFinal)
+            {
+                CanbeClosed = true;
+                ohmmeterWindow.Close();
+                return true;
+            }
             if (MessageBox.Show("确定要退出欧姆表吗？", 
                 "询问", MessageBoxButton.YesNo, 
                 MessageBoxImage.Question) == MessageBoxResult.Yes)

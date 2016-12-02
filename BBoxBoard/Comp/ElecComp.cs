@@ -49,7 +49,7 @@ namespace BBoxBoard.Comp
 
         public virtual void AddShapes() { }
         public virtual ElecFeature GetElecFeature() { return new ElecFeature(); }
-        public virtual bool DeletingCmd() { return true; }
+        public virtual bool DeletingCmd(bool IsFinal) { return true; }
 
         public void ShowIn(Canvas canvas_)
         {

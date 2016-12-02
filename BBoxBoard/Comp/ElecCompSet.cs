@@ -49,7 +49,7 @@ namespace BBoxBoard.Comp
 
         public void DeleteNowPressed(Canvas canvas)
         {
-            if (pressedElecComp != null && pressedElecComp.DeletingCmd())
+            if (pressedElecComp != null && pressedElecComp.DeletingCmd(false))
             {
                 pressedElecComp.RemoveAllFrom(canvas);
                 elecSet.Remove(pressedElecComp);
@@ -71,6 +71,18 @@ namespace BBoxBoard.Comp
             foreach (ElecComp elecComp in elecSet)
             {
                 A.Add(elecComp.GetBriefElecComp());
+            }
+        }
+
+        public void CloseAll(Canvas canvas)
+        {
+            foreach (ElecComp x in elecSet)
+            {
+                if (x.DeletingCmd(true))
+                {
+                    x.RemoveAllFrom(canvas);
+                    //elecSet.Remove(x);
+                }
             }
         }
     }

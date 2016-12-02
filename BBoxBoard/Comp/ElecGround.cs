@@ -69,8 +69,8 @@ namespace BBoxBoard.Comp
         public override BriefElecComp GetBriefElecComp()
         {
             List<IntPoint> A = new List<IntPoint>();
-            A.Add(new IntPoint(RelativeInterface[1].X + +XYPoint.X, 
-                RelativeInterface[1].Y + +XYPoint.Y)); //正常的连接点
+            A.Add(new IntPoint(RelativeInterface[1].X + XYPoint.X, 
+                RelativeInterface[1].Y + XYPoint.Y)); //正常的连接点
             A.Add(new IntPoint(RelativeInterface[0].X, RelativeInterface[0].Y));
                 //地
             return new BriefElecComp(Comp_Wire, A, this);

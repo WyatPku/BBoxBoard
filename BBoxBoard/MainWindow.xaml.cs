@@ -306,5 +306,10 @@ namespace BBoxBoard
             this.progress.Value = p;
             this.progressTextBlock.Text = Text;
         }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            elecCompSet.CloseAll(Mycanvas);
+            base.OnClosing(e);
+        }
     }
 }
