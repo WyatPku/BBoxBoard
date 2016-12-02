@@ -24,6 +24,7 @@ namespace BBoxBoard.Comp
         public const int Comp_VoltMeter = 5;
         public const int Comp_IMeter = 6;
         public const int Comp_Ground = 7;
+        public const int Comp_Probe = 8;
 
         protected ShapeSet shapeSet;
         protected IntPoint XYPoint;
@@ -36,6 +37,11 @@ namespace BBoxBoard.Comp
         public int State;
 
         public ElecComp()
+        {
+            Init();
+        }
+
+        protected void Init()
         {
             Comp = -1;
             shapeSet = new ShapeSet();

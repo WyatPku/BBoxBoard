@@ -79,6 +79,7 @@
     <Compile Include="Comp\Inductance.cs" />
     <Compile Include="Comp\OhmMeter.cs" />
     <Compile Include="Comp\Power.cs" />
+    <Compile Include="Comp\Probe.cs" />
     <Compile Include="Comp\Resistance.cs" />
     <Compile Include="BasicDraw\TransferXY.cs" />
     <Compile Include="Comp\VoltMeter.cs" />

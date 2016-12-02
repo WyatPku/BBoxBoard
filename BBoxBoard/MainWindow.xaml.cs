@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace BBoxBoard
 {
@@ -55,6 +56,7 @@ namespace BBoxBoard
             StringArr.Add("电阻表");
             StringArr.Add("电压表");
             StringArr.Add("地");
+            StringArr.Add("红色探针");
             this.elecCompList.ItemsSource = StringArr;
             //this.elecCompList.ItemsSource = ImageArr;
             this.elecCompList.MouseDoubleClick += ElecCompList_MouseDoubleClick;
@@ -212,6 +214,11 @@ namespace BBoxBoard
                         ElecGround eg = new ElecGround();
                         elecCompSet.AddCompAndShow(eg, Mycanvas);
                         eg.Move(100, 100);
+                        break;
+                    case 7:
+                        Probe pb = new Probe(Brushes.Red);
+                        elecCompSet.AddCompAndShow(pb, Mycanvas);
+                        pb.Move(100, 100);
                         break;
                 }
             }
