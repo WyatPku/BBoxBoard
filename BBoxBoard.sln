@@ -8,7 +8,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBoxBoard", "BBoxBoard\BBox
 		{B7CAE5F4-A23F-4438-B5BE-41226618B695} = {B7CAE5F4-A23F-4438-B5BE-41226618B695}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numerics", "..\..\..\..\Downloads\mathnet-numerics-master\src\Numerics\Numerics.csproj", "{B7CAE5F4-A23F-4438-B5BE-41226618B695}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numerics", "BBoxBoard\Numerics\Numerics.csproj", "{B7CAE5F4-A23F-4438-B5BE-41226618B695}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
