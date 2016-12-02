@@ -4,6 +4,7 @@ using BBoxBoard.Output;
 using BBoxBoard.PicAnalysis;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -19,6 +20,7 @@ namespace BBoxBoard
         public const int CanvasHeight = 715;
         public const int GridLen = 10;
         public bool IsRuning;
+        SynchronizationContext m_SyncContext;
         Thread mThread;
 
         private ElecCompSet elecCompSet;
@@ -31,6 +33,7 @@ namespace BBoxBoard
         {
             IsRuning = false;
             InitializeComponent();
+            m_SyncContext = SynchronizationContext.Current;
             /*ImageArr = new List<Image>();
             //MessageBox.Show("" + Environment.CurrentDirectory);
             for (int i=0; i<4; i++)
@@ -64,6 +67,7 @@ namespace BBoxBoard
             this.KeyDown += MainWindow_KeyDown;
             InitTest();
             this.start_button.Click += Start_button_Click;
+            SyncProgess(100, "无任务"); //用这个函数异步更新ProgressBar的值
         }
 
         private void Start_button_Click(object sender, RoutedEventArgs e)
@@ -91,7 +95,7 @@ namespace BBoxBoard
                 MessageBox.Show("模拟:" + i);
                 this.Title = "";
             }*/
-            Processing processing = new Processing(GetAllComp(), 1e-6, 10);
+            Processing processing = new Processing(GetAllComp(), 1e-6, 10, this);
             this.IsRuning = false;
             MessageBox.Show("模拟结束！");
         }
@@ -131,7 +135,7 @@ namespace BBoxBoard
             if (e.Key == Key.T) //Transform
             {
                 List<BriefElecComp> A = GetAllComp();
-                SimplifiedPic simplifiedPic = new SimplifiedPic(A);
+                SimplifiedPic simplifiedPic = new SimplifiedPic(A, this);
             }
             if (e.Key == Key.O)
             {
@@ -274,6 +278,21 @@ namespace BBoxBoard
             List<BriefElecComp> A = new List<BriefElecComp>();
             elecCompSet.OutputInto(A);
             return A;
+        }
+
+        public void SyncProgess(int p, String Text)
+        {
+            m_SyncContext.Post(SetProgress, new KeyValuePair<int, String>
+                (p, Text));
+        }
+
+        private void SetProgress(Object x)
+        {
+            KeyValuePair<int, String> kvp = (KeyValuePair<int, String>)x;
+            int p = kvp.Key;
+            String Text = kvp.Value;
+            this.progress.Value = p;
+            this.progressTextBlock.Text = Text;
         }
     }
 }

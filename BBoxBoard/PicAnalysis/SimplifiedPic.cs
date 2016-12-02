@@ -20,13 +20,14 @@ namespace BBoxBoard.PicAnalysis
         List<ElecStructure> StructureArr;
         public double[,] A;
 
-        public SimplifiedPic(List<BriefElecComp> Arr)
+        public SimplifiedPic(List<BriefElecComp> Arr, MainWindow mainWindow)
         {
-            
+            mainWindow.SyncProgess(0, "处理图像");
             PointArr = new List<IntPoint>();
             FeatureArr = new List<ElecFeature>();
             StructureArr = new List<ElecStructure>();
             //第一步：只要找到导线，则把所有的第二节点变成第一节点
+            mainWindow.SyncProgess(5, "处理导线");
             for (int i=0; i<Arr.Count; i++)
             {
                 if (Arr[i].Comp == BriefElecComp.Comp_Wire)
@@ -40,6 +41,7 @@ namespace BBoxBoard.PicAnalysis
                     }
                 }
             }
+            mainWindow.SyncProgess(10, "处理坐标");
             //第二步：找到所有不同的坐标，存在PointArr里
             for (int i=0; i<Arr.Count; i++)
             {
@@ -51,6 +53,7 @@ namespace BBoxBoard.PicAnalysis
                     }
                 }
             }
+            mainWindow.SyncProgess(15, "整理元件");
             for (int i=0; i<Arr.Count; i++)
             {
                 if (Arr[i].Comp != BriefElecComp.Comp_Wire)
@@ -66,31 +69,32 @@ namespace BBoxBoard.PicAnalysis
                 }
             }
             //显示所有的Feature信息
-            String str1 = "";
+            /*String str1 = "";
             for (int i=0; i< FeatureArr.Count; i++)
             {
                 str1 += FeatureArr[i] + "\r\n";
             }
-            MessageBox.Show(str1);
+            MessageBox.Show(str1);*/
             //显示所有的节点信息
-            String str = "";
+            /*String str = "";
             for (int i=0; i<PointArr.Count; i++)
             {
                 str += "Point " + i + ":" + PointArr[i].X + 
                     "," + PointArr[i].Y + "\n";
             }
-            MessageBox.Show(str);
+            MessageBox.Show(str);*/
             //显示所有的结构信息
-            String str2 = "";
+            /*String str2 = "";
             for (int i=0; i<StructureArr.Count; i++)
             {
                 str2 += StructureArr[i] + "\n";
             }
-            MessageBox.Show(str2);
+            MessageBox.Show(str2);*/
             //下面开始处理结构，获得结构矩阵
-            ComputeA();
+            mainWindow.SyncProgess(20, "处理结构");
+            ComputeA(mainWindow);
         }
-        private void ComputeA()
+        private void ComputeA(MainWindow mainWindow)
         {
             //初始化矩阵
             A = new double[StructureArr.Count, StructureArr.Count];
@@ -103,6 +107,7 @@ namespace BBoxBoard.PicAnalysis
                 }
             }
             //分组前先剪死枝
+            mainWindow.SyncProgess(25, "处理元件");
             List<ElecStructure> NoDeadArr = new List<ElecStructure>();
             List<int> NoDeadToOMap = new List<int>();
             for (int i=0; i<StructureArr.Count; i++)
@@ -123,6 +128,7 @@ namespace BBoxBoard.PicAnalysis
                 }
             }
             //对没有死枝的电路分组，之前写错了
+            mainWindow.SyncProgess(30, "分组");
             int TeamCount = 0;
             for (int i=0; i< NoDeadArr.Count; i++)
             {
@@ -141,8 +147,10 @@ namespace BBoxBoard.PicAnalysis
             //已经分好组了，对于每一个组内部做操作
             for (int i=0; i<TeamCount; i++)
             {
+                mainWindow.SyncProgess(30 + 70 * i / TeamCount, "处理分组：" + (i+1));
                 HandleGroup(i, NoDeadToOMap, NoDeadArr);
             }
+            mainWindow.SyncProgess(100, "图像处理完成");
             /*MessageBox.Show("0:" + IsDeadin(0, StructureArr));
             MessageBox.Show("1:" + IsDeadin(1, StructureArr));
             MessageBox.Show("2:" + IsDeadin(2, StructureArr));
@@ -221,7 +229,7 @@ namespace BBoxBoard.PicAnalysis
 
                 endIndex++;
             }
-            Console.WriteLine("Equation=");
+            /*Console.WriteLine("Equation=");
             for (int i = 0; i < GroupArr.Count; i++)
             {
                 for (int j = 0; j < GroupArr.Count; j++)
@@ -238,7 +246,7 @@ namespace BBoxBoard.PicAnalysis
                     Console.Write(" " + BMatrix[i, j]);
                 }
                 Console.Write("\r\n");
-            }
+            }*/
             //开始解方程的列向量
             Complex[,] complexEquation = new Complex[GroupArr.Count, GroupArr.Count];
             Complex[] complexB = new Complex[GroupArr.Count];
@@ -308,10 +316,10 @@ namespace BBoxBoard.PicAnalysis
             //判断是不是没有了，如果没有了就没有回路，直接返回就可以
             if (RoundArr.Count == 0) return startIndex;
             //现在一定有回路，获得一个可行的路径
-            MessageBox.Show("Getting AvalPath:remain:" + RoundArr.Count);
+            //MessageBox.Show("Getting AvalPath:remain:" + RoundArr.Count);
             List<IntPoint> path = GetAvalPath(RoundArr); //卡在这里了
             //输出
-            String str = "Path:";
+            /*String str = "Path:";
             for (int i=0; i<path.Count; i++)
             {
                 str += "(" + path[i].X + "," + path[i].Y + ")";
@@ -321,7 +329,7 @@ namespace BBoxBoard.PicAnalysis
             {
                 str += "(" + MapEquation2[i] + ")";
             }
-            MessageBox.Show(str);
+            MessageBox.Show(str);*/
             //获得一个回路，填充到方程中去
             //对于每一个步骤，寻找一个原件匹配
             //debug：不能找相同的元件，需要把找没找过用List记录下来

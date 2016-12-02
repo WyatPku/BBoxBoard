@@ -25,6 +25,8 @@
                     </TransformGroup>
                 </Path.RenderTransform>
             </Path>
+            <ProgressBar x:Name="progress" Height="28.8" Canvas.Top="692" Width="865.2"/>
+            <TextBlock x:Name="progressTextBlock" Height="44" Canvas.Left="865.2" TextWrapping="Wrap" Text="目前无任务" Canvas.Top="677.2" Width="128.8"/>
 
 
         </Canvas>
