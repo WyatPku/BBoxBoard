@@ -76,13 +76,13 @@ namespace BBoxBoard.PicAnalysis
             }
             MessageBox.Show(str1);*/
             //显示所有的节点信息
-            /*String str = "";
+            String str = "";
             for (int i=0; i<PointArr.Count; i++)
             {
                 str += "Point " + i + ":" + PointArr[i].X + 
                     "," + PointArr[i].Y + "\n";
             }
-            MessageBox.Show(str);*/
+            MessageBox.Show(str);
             //显示所有的结构信息
             /*String str2 = "";
             for (int i=0; i<StructureArr.Count; i++)

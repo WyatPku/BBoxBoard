@@ -23,6 +23,7 @@ namespace BBoxBoard.Equipment
     {
         private OhmMeter ohmmterClass;
         public ShowingData showingData;
+        Line line;
 
         public Ohmmeter(OhmMeter ohmmterClass_)
         {
@@ -30,10 +31,20 @@ namespace BBoxBoard.Equipment
             ohmmterClass = ohmmterClass_;
             showingData = ohmmterClass.showingData;
             this.textBlock.DataContext = showingData;
+
+            line = new Line();
+            line.Stroke = Brushes.Green;
+            line.StrokeThickness = 10;
+            line.X1 = 0;
+            line.Y1 = 0;
+            line.X2 = 100;
+            line.Y2 = 100;
+            ohmCanvas.Children.Add(line);
         }
 
         protected override void OnClosing(CancelEventArgs e)
         {
+            line.X1++;
             //必须通过拖动来关闭窗口
             if (ohmmterClass.CanbeClosed)
             {

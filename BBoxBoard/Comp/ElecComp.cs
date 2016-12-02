@@ -23,6 +23,7 @@ namespace BBoxBoard.Comp
         public const int Comp_OhmMeter = 4;
         public const int Comp_VoltMeter = 5;
         public const int Comp_IMeter = 6;
+        public const int Comp_Ground = 7;
 
         protected ShapeSet shapeSet;
         protected IntPoint XYPoint;
@@ -282,7 +283,7 @@ namespace BBoxBoard.Comp
             return A;
         }
 
-        public BriefElecComp GetBriefElecComp()
+        public virtual BriefElecComp GetBriefElecComp()
         {
             List<IntPoint> A = new List<IntPoint>();
             foreach (IntPoint p in RelativeInterface)

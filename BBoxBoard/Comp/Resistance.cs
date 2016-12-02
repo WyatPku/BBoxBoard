@@ -74,7 +74,7 @@ namespace BBoxBoard.Comp
         {
             ResistanceElecFeature resistanceElecFeature =
                 new ResistanceElecFeature();
-            resistanceElecFeature.R = 1000;
+            resistanceElecFeature.R = 10;
             return resistanceElecFeature;
         }
         class ResistanceElecFeature : ElecFeature

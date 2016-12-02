@@ -54,6 +54,7 @@ namespace BBoxBoard
             StringArr.Add("电感");
             StringArr.Add("电阻表");
             StringArr.Add("电压表");
+            StringArr.Add("地");
             this.elecCompList.ItemsSource = StringArr;
             //this.elecCompList.ItemsSource = ImageArr;
             this.elecCompList.MouseDoubleClick += ElecCompList_MouseDoubleClick;
@@ -96,7 +97,7 @@ namespace BBoxBoard
                 MessageBox.Show("模拟:" + i);
                 this.Title = "";
             }*/
-            Processing processing = new Processing(GetAllComp(), 1e-6, 10, this);
+            Processing processing = new Processing(GetAllComp(), 1e-6, 100, this);
             this.IsRuning = false;
             MessageBox.Show("模拟结束！");
         }
@@ -206,6 +207,11 @@ namespace BBoxBoard
                         VoltMeter ee = new VoltMeter();
                         elecCompSet.AddCompAndShow(ee, Mycanvas);
                         ee.Move(100, 100);
+                        break;
+                    case 6:
+                        ElecGround eg = new ElecGround();
+                        elecCompSet.AddCompAndShow(eg, Mycanvas);
+                        eg.Move(100, 100);
                         break;
                 }
             }
