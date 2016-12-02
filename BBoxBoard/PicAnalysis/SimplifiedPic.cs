@@ -107,7 +107,12 @@ namespace BBoxBoard.PicAnalysis
             List<int> NoDeadToOMap = new List<int>();
             for (int i=0; i<StructureArr.Count; i++)
             {
-                if (IsDeadin(i, StructureArr))
+                if (StructureArr[i].LeftFoot == StructureArr[i].RightFoot)
+                {
+                    //如果被短路的话，设为0，Bug修复
+                    A[i, i] = 0;
+                }
+                else if (IsDeadin(i, StructureArr))
                 {
                     A[i, i] = 1; //直接映射就可以
                 }
@@ -188,6 +193,7 @@ namespace BBoxBoard.PicAnalysis
             {
                 EquationMap.Add(i);
             }
+            //获得回路方程
             int endIndex = GetNextLoopEquation(0, Equation, GroupArr, EquationMap);
             
             //寻找所有的节点
@@ -208,10 +214,9 @@ namespace BBoxBoard.PicAnalysis
             {
                 for (int j=0; j<GroupArr.Count; j++)
                 {
-                    Equation[endIndex, j] = GroupArr[j].GetFoot(Joint[i]) /
-                        GroupArr[j].rC;
-                    BMatrix[endIndex, j] = GroupArr[j].GetFoot(Joint[i]) /
-                        GroupArr[j].rC;
+                    //修复Bug，节点方程与电容值无关
+                    Equation[endIndex, j] = GroupArr[j].GetFoot(Joint[i]);
+                    BMatrix[endIndex, j] = GroupArr[j].GetFoot(Joint[i]);
                 }
 
                 endIndex++;

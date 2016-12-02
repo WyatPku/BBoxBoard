@@ -108,6 +108,10 @@ namespace BBoxBoard.Comp
             private const double ShowT = 1e-3;
             private double Meter_R;
             public ShowingData showingData;
+            public OhmMeterElecFeature() : base()
+            {
+                rC = 1e-1;
+            }
 
             public override double GetNext(double deltaT)
             {

@@ -87,20 +87,21 @@ namespace BBoxBoard.Comp
 
         class CapacityElecFeature : ElecFeature
         {
-            public double Q;
-            public double C;
+            //public double Q;
+            //public double C;
 
             public CapacityElecFeature(double C_) : base()
             {
-                Q = 0;
-                C = C_;
+                //Q = 0;
+                //C = C_;
+                rC = C_;
             }
 
             public override double GetNext(double deltaT)
             {
-                double Qsum = rQ + Q;
-                Q = Qsum * C / (rC + C);
-                rQ = Qsum * rC / (rC + C);
+                //double Qsum = rQ + Q;
+                //Q = Qsum * C / (rC + C);
+                //rQ = Qsum * rC / (rC + C);
                 return rQ;
             }
         }
