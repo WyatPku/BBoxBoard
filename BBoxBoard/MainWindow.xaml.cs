@@ -1,5 +1,6 @@
 ﻿using BBoxBoard.BasicDraw;
 using BBoxBoard.Comp;
+using BBoxBoard.Equipment;
 using BBoxBoard.Output;
 using BBoxBoard.PicAnalysis;
 using System;
@@ -23,6 +24,7 @@ namespace BBoxBoard
         public bool IsRuning;
         SynchronizationContext m_SyncContext;
         Thread mThread;
+        oscilloscope myOscilloscope;
 
         private ElecCompSet elecCompSet;
         private IntPoint PushDownPoint;
@@ -57,6 +59,7 @@ namespace BBoxBoard
             StringArr.Add("电压表");
             StringArr.Add("地");
             StringArr.Add("红色探针");
+            StringArr.Add("蓝色探针");
             this.elecCompList.ItemsSource = StringArr;
             //this.elecCompList.ItemsSource = ImageArr;
             this.elecCompList.MouseDoubleClick += ElecCompList_MouseDoubleClick;
@@ -72,6 +75,7 @@ namespace BBoxBoard
             InitTest();
             this.start_button.Click += Start_button_Click;
             SyncProgess(100, "无任务"); //用这个函数异步更新ProgressBar的值
+            myOscilloscope = new oscilloscope();
         }
 
         private void Start_button_Click(object sender, RoutedEventArgs e)
@@ -84,6 +88,7 @@ namespace BBoxBoard
             }
             else
             {
+                myOscilloscope.ClearAll();
                 mThread = new Thread(Elec_Run);
                 mThread.Start();
             }
@@ -216,7 +221,30 @@ namespace BBoxBoard
                         eg.Move(100, 100);
                         break;
                     case 7:
-                        Probe pb = new Probe(Brushes.Red);
+                        oscilloscopeData myOscilloscopeData = new
+                            oscilloscopeData(Brushes.Red, oscilloscopeData.Volt_Index,
+                                myOscilloscope.m_SyncContext);
+                        Probe pb = new Probe(Brushes.Red, myOscilloscopeData);
+                        if (!myOscilloscope.IsVisible)
+                        {
+                            myOscilloscope.Show();
+                        }
+                        myOscilloscope.AddData(myOscilloscopeData);
+                        myOscilloscope.SyncSettings();
+                        elecCompSet.AddCompAndShow(pb, Mycanvas);
+                        pb.Move(100, 100);
+                        break;
+                    case 8:
+                        myOscilloscopeData = new
+                            oscilloscopeData(Brushes.Blue, oscilloscopeData.Volt_Index,
+                                myOscilloscope.m_SyncContext);
+                        pb = new Probe(Brushes.Blue, myOscilloscopeData);
+                        if (!myOscilloscope.IsVisible)
+                        {
+                            myOscilloscope.Show();
+                        }
+                        myOscilloscope.AddData(myOscilloscopeData);
+                        myOscilloscope.SyncSettings();
                         elecCompSet.AddCompAndShow(pb, Mycanvas);
                         pb.Move(100, 100);
                         break;
@@ -316,6 +344,7 @@ namespace BBoxBoard
         protected override void OnClosing(CancelEventArgs e)
         {
             elecCompSet.CloseAll(Mycanvas);
+            myOscilloscope.Close();
             base.OnClosing(e);
         }
     }

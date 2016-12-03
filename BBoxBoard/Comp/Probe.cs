@@ -1,4 +1,5 @@
 ﻿using BBoxBoard.BasicDraw;
+using BBoxBoard.Equipment;
 using BBoxBoard.Output;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,11 @@ namespace BBoxBoard.Comp
     public class Probe : ElecComp
     {
         private SolidColorBrush probeColor;
+        private oscilloscopeData myOscilloscopeData;
 
-        public Probe(SolidColorBrush x) {
+        public Probe(SolidColorBrush x, oscilloscopeData y) {
             probeColor = x;
+            myOscilloscopeData = y;
             Init();
         }
 
@@ -84,6 +87,40 @@ namespace BBoxBoard.Comp
             return new BriefElecComp(Comp, A, this);
         }
 
-        
+        public override ElecFeature GetElecFeature()
+        {
+            ProbeElecFeature probeElecFeature =
+                new ProbeElecFeature(myOscilloscopeData.FullTime / 10000,
+                    myOscilloscopeData);
+            return probeElecFeature;
+        }
+        class ProbeElecFeature : ElecFeature
+        {
+            double Tsum = 0;
+            double period;
+            double periodSum = 0;
+            oscilloscopeData myOscilloscopeData;
+
+            public ProbeElecFeature(double period_, oscilloscopeData 
+                myOscilloscopeData_) : base()
+            {
+                period = period_;
+                myOscilloscopeData = myOscilloscopeData_;
+            }
+
+            public override double GetNext(double deltaT)
+            {
+                Tsum += deltaT;
+                periodSum += deltaT;
+                if (periodSum > period)
+                {
+                    myOscilloscopeData.SyncAddData(Tsum, rQ / rC);
+                    periodSum = 0;
+                }
+                return rQ;
+            }
+        }
+
+
     }
 }

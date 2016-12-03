@@ -61,6 +61,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Equipment\oscilloscope.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Equipment\Voltmeter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,6 +91,10 @@
     <Compile Include="Equipment\Ohmmeter.xaml.cs">
       <DependentUpon>Ohmmeter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Equipment\oscilloscope.xaml.cs">
+      <DependentUpon>oscilloscope.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment\oscilloscopeData.cs" />
     <Compile Include="Equipment\ShowingData.cs" />
     <Compile Include="Equipment\Voltmeter.xaml.cs">
       <DependentUpon>Voltmeter.xaml</DependentUpon>
