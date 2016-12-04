@@ -11,14 +11,13 @@ namespace BBoxBoard.Comp
 {
     public class Capacity : ElecComp
     {
-        CapacityElecFeature capacityElecFeature;
+        public double C;
 
         public Capacity() : base() { }
 
         public override void AddShapes()
         {
-            capacityElecFeature = new CapacityElecFeature(1e-7);
-
+            C = 0.01; //默认电容
             //设置类型
             Comp = Comp_Capacity;
             /*//必须重新设置元件大小（已废弃）
@@ -107,7 +106,7 @@ namespace BBoxBoard.Comp
         }
         public override ElecFeature GetElecFeature()
         {
-            return new CapacityElecFeature(0.01);
+            return new CapacityElecFeature(C);
         }
     }
 }

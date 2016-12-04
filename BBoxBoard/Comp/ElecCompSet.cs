@@ -39,17 +39,33 @@ namespace BBoxBoard.Comp
 
         public bool FoundPressedElecComp(IInputElement targetElement)
         {
+            if (targetElement is Shape)
+            {
+                Shape shape = (Shape)targetElement;
+                for (int i = 0; i < elecSet.Count; i++)
+                {
+                    if (elecSet[i].HasShape(shape))
+                    {
+                        pressedElecComp = elecSet[i];
+                        pressedIndex = i;
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public ElecComp GetPressedElecComp(IInputElement targetElement)
+        {
             Shape shape = (Shape)targetElement;
             for (int i = 0; i < elecSet.Count; i++)
             {
                 if (elecSet[i].HasShape(shape))
                 {
-                    pressedElecComp = elecSet[i];
-                    pressedIndex = i;
-                    return true;
+                    return elecSet[i];
                 }
             }
-            return false;
+            return null;
         }
 
         public void ReleaseElecComp()

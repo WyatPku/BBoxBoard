@@ -69,6 +69,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="AdvancedDraw\SuspensionWindow .cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -85,7 +86,6 @@
     <Compile Include="Comp\Power.cs" />
     <Compile Include="Comp\Probe.cs" />
     <Compile Include="Comp\Resistance.cs" />
-    <Compile Include="BasicDraw\TransferXY.cs" />
     <Compile Include="Comp\VoltMeter.cs" />
     <Compile Include="Comp\Wire.cs" />
     <Compile Include="Equipment\Ohmmeter.xaml.cs">

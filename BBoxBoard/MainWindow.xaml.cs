@@ -1,4 +1,5 @@
-﻿using BBoxBoard.BasicDraw;
+﻿using BBoxBoard.AdvancedDraw;
+using BBoxBoard.BasicDraw;
 using BBoxBoard.Comp;
 using BBoxBoard.Equipment;
 using BBoxBoard.Output;
@@ -27,6 +28,7 @@ namespace BBoxBoard
         SynchronizationContext m_SyncContext;
         Thread mThread;
         oscilloscope myOscilloscope;
+        SuspensionWindow suspensionWindow;
 
         private ElecCompSet elecCompSet;
         private IntPoint PushDownPoint;
@@ -39,6 +41,7 @@ namespace BBoxBoard
             IsRuning = false;
             InitializeComponent();
             m_SyncContext = SynchronizationContext.Current;
+            suspensionWindow = new SuspensionWindow(this);
             /*ImageArr = new List<Image>();
             //MessageBox.Show("" + Environment.CurrentDirectory);
             for (int i=0; i<4; i++)
@@ -66,9 +69,10 @@ namespace BBoxBoard
             //this.elecCompList.ItemsSource = ImageArr;
             this.elecCompList.MouseDoubleClick += ElecCompList_MouseDoubleClick;
             //UpdateList();
-            this.Mycanvas.MouseDown += Mycanvas_MouseDown;
+            this.Mycanvas.MouseLeftButtonDown += Mycanvas_MouseLeftButtonDown;
             this.Mycanvas.MouseUp += Mycanvas_MouseUp;
             this.Mycanvas.MouseMove += Mycanvas_MouseMove;
+            this.Mycanvas.MouseRightButtonUp += Mycanvas_MouseRightButtonUp;
             elecCompSet = new ElecCompSet();
             //elecCompSet.AddCompAndShow(new Resistance(), Mycanvas);
             //elecCompSet.AddCompAndShow(new Capacity(), Mycanvas);
@@ -286,8 +290,12 @@ namespace BBoxBoard
             elecCompSet.ReleaseElecComp();
         }
 
-        private void Mycanvas_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Mycanvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (suspensionWindow.IsNowShown)
+            {
+                suspensionWindow.ReleaseChooses();
+            }
             var targetElement = e.Source as IInputElement;
             IntPoint point = ToGrid(new IntPoint(e.GetPosition(Mycanvas)));
             if (targetElement != null)
@@ -306,12 +314,34 @@ namespace BBoxBoard
                     PushDownPoint = point;
                     HasMoved = new IntPoint(0, 0);
                 }*/
+                //更新为根据所选的Shape决定谁被选中
                 if (elecCompSet.FoundPressedElecComp(targetElement))
                 {
                     //MessageBox.Show("Found!");
                     textBox.Text = "Found";
                     PushDownPoint = point;
                     HasMoved = new IntPoint(0, 0);
+                }
+            }
+        }
+
+        private void Mycanvas_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (suspensionWindow.IsNowShown)
+            {
+                suspensionWindow.ReleaseChooses();
+            }
+            var targetElement = e.Source as IInputElement;
+            IntPoint point = ToGrid(new IntPoint(e.GetPosition(Mycanvas)));
+            if (targetElement != null)
+            {
+                targetElement.CaptureMouse();
+                if (elecCompSet.FoundPressedElecComp(targetElement))
+                {
+                    //MessageBox.Show("Right!");
+                    textBox.Text = "Right";
+                    ElecComp elecComp = elecCompSet.GetPressedElecComp(targetElement);
+                    suspensionWindow.ShowChooses(elecComp, point);
                 }
             }
         }

@@ -32,7 +32,7 @@ namespace BBoxBoard.Comp
         protected Canvas canvas;
         protected List<IntPoint> RelativeInterface;
         protected int RotatedState = 0;
-        protected int Comp;
+        public int Comp;
         public bool IsWire;
         public int State;
 

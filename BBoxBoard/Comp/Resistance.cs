@@ -11,10 +11,13 @@ namespace BBoxBoard.Comp
 {
     public class Resistance : ElecComp
     {
+        public double R;
+
         public Resistance() : base() { }
 
         public override void AddShapes()
         {
+            R = 1000;//默认电阻
             //设置类型
             Comp = Comp_Resistance;
             /*//必须重新设置元件大小（已废弃）
@@ -74,7 +77,7 @@ namespace BBoxBoard.Comp
         {
             ResistanceElecFeature resistanceElecFeature =
                 new ResistanceElecFeature();
-            resistanceElecFeature.R = 10;
+            resistanceElecFeature.R = R;
             return resistanceElecFeature;
         }
         class ResistanceElecFeature : ElecFeature
