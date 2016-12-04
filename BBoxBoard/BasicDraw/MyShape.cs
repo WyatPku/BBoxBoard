@@ -17,7 +17,7 @@ namespace BBoxBoard.BasicDraw
         public const int Shape_Ellipse = 3;
         public const int Shape_Ployline = 4;
 
-        Shape shape;
+        public Shape shape;
         int WHAT;
 
         public MyShape(int WHAT_)

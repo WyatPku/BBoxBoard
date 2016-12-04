@@ -8,8 +8,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace BBoxBoard
 {
@@ -297,7 +299,14 @@ namespace BBoxBoard
                  * Move的时候一直跟着动，但是位置不是鼠标的位置，而是贴合位置
                  * 这和第一次放上去元件是一样的，只能放在格点上
                  */
-                if (elecCompSet.FoundPressedElecComp(point))
+                /*if (elecCompSet.FoundPressedElecComp(point))
+                {
+                    //MessageBox.Show("Found!");
+                    textBox.Text = "Found";
+                    PushDownPoint = point;
+                    HasMoved = new IntPoint(0, 0);
+                }*/
+                if (elecCompSet.FoundPressedElecComp(targetElement))
                 {
                     //MessageBox.Show("Found!");
                     textBox.Text = "Found";

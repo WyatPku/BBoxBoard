@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace BBoxBoard.Comp
 {
@@ -35,6 +36,22 @@ namespace BBoxBoard.Comp
             }
             return false;
         }
+
+        public bool FoundPressedElecComp(IInputElement targetElement)
+        {
+            Shape shape = (Shape)targetElement;
+            for (int i = 0; i < elecSet.Count; i++)
+            {
+                if (elecSet[i].HasShape(shape))
+                {
+                    pressedElecComp = elecSet[i];
+                    pressedIndex = i;
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void ReleaseElecComp()
         {
             pressedElecComp = null;

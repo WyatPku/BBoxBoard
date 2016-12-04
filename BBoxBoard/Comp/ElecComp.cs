@@ -120,6 +120,10 @@ namespace BBoxBoard.Comp
             }
             return true;
         }
+        public bool HasShape(Shape shape)
+        {
+            return shapeSet.HasShape(shape);
+        }
         public void RemoveAllFrom(Canvas canvas)
         {
             shapeSet.RemoveAllFrom(canvas);

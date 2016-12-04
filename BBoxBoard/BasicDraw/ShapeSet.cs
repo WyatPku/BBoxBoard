@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Shapes;
 
 namespace BBoxBoard.BasicDraw
 {
@@ -56,6 +57,15 @@ namespace BBoxBoard.BasicDraw
                 A += "," + myShape;
             }
             return A;
+        }
+
+        public bool HasShape(Shape shape)
+        {
+            foreach (MyShape myShape in arr)
+            {
+                if (myShape.shape == shape) return true;
+            }
+            return false;
         }
     }
 }
