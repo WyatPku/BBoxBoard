@@ -26,8 +26,8 @@ namespace BBoxBoard.Comp
             //必须重新设置元件大小
             int sizeX = Math.Abs(A.X - B.X);
             int sizeY = Math.Abs(A.Y - B.Y);
-            size.X = (sizeX==0)?10:sizeX;
-            size.Y = (sizeY==0)?10:sizeY;
+            //（已废弃）size.X = (sizeX==0)?10:sizeX;
+            //size.Y = (sizeY==0)?10:sizeY;
         }
     }
 }

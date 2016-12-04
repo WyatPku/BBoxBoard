@@ -14,8 +14,8 @@ namespace BBoxBoard.Comp
         public override void AddShapes()
         {
             Comp = Comp_Ground;
-            size.X = 40;
-            size.Y = 30;
+            //（已废弃）size.X = 40;
+            //size.Y = 30;
             RelativeInterface.Add(new IntPoint(-1024, -1024)); //Ground
             RelativeInterface.Add(new IntPoint(20, 0)); //右端口
             //直线
